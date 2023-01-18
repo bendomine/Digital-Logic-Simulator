@@ -71,8 +71,14 @@ If there are three or more pins on one side, the block's height is just the mini
 to contain all of the pins following the previously mentioned constraints.
 The group of pins is always centered. 
 */
-// Wow, I sounded very determined. If I'd known
+// Wow, I sounded very confident.
 
+
+// This class represents one pin. It contains some basic information about the pin.
+// ref is a reference to the html element of the pin.
+// connected is an array of other pins that this one is connected to.
+// active determines whether or not this pin is active or not.
+// side is 0 if this pin is an input pin, 1 if it's an output pin.
 class Pin{
 	constructor(ref){
 		this.ref = ref;
