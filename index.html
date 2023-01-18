@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Logic Gates Simulator</title>
+	<link rel="stylesheet" href="home.css">
+</head>
+<body>
+	<div id="workspace">
+		<canvas id="canvas"></canvas>
+		<div class="block" style="background-color: rgb(69, 69, 255);">AND</div>
+		<div class="block" style="background-color: rgb(255, 91, 91);">OR</div>
+		<div class="block" style="background-color: rgb(73, 255, 124);">NOT</div>
+		<div class="block" style="background-color: rgb(255, 220, 93);">HALFADDER</div>
+		<div class="block" id="input" style="background-color:rgb(95, 158, 160)">INPUT</div>
+		<div class="block" id="output" style="background-color:rgb(95, 158, 160)">OUTPUT</div>
+	</div>
+
+	<script src="pins.js"></script>
+	<script src="connections.js"></script>
+	<script src="drag.js"></script>
+</body>
+</html>
