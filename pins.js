@@ -38,7 +38,7 @@ function initPins(block){
 			block.ref.appendChild(elem);
 			elem.style.left = "-7.5px";
 			// Now that the element is created and added, we need to create the pin object to attach.
-			let pin = new Pin(elem);
+			let pin = new Pin(elem, block);
 			pin.side = 0;
 			block.inPins[i] = pin;
 			// Also, when the pin is clicked on, we need to create a new wire.
@@ -53,7 +53,7 @@ function initPins(block){
 			elem.style.top = outTopPadding + 15 * i + "px";
 			block.ref.appendChild(elem);
 			elem.style.left = block.ref.offsetWidth - 10 + "px";
-			let pin = new Pin(elem);
+			let pin = new Pin(elem, block);
 			pin.side = 1;
 			block.outPins[i] = pin;
 			elem.onmousedown = (e) => {newWire(pin)};
@@ -80,11 +80,12 @@ The group of pins is always centered.
 // active determines whether or not this pin is active or not.
 // side is 0 if this pin is an input pin, 1 if it's an output pin.
 class Pin{
-	constructor(ref){
+	constructor(ref, block){
 		this.ref = ref;
 		this.connected = [];
 		this.active = false;
 		this.side;
+		this.block = block;
 	}
 	connect(pin){
 		this.connected.push(pin);
