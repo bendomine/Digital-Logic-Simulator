@@ -39,3 +39,21 @@ body{
 .block .pin:hover{
 	background-color: inherit;
 }
+
+#input::before{
+	width: 100px;
+	height: 50px;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -20%);
+	background-color: rgba(0.0, 0.0, 0.0, 0.7);
+	font-size: 13px;
+	content: "Double Click to Edit";
+	line-height: 13px;
+	transition: opacity 0.2s;
+	opacity: 0;
+}
+#input:hover::before{
+	opacity: 1;
+}

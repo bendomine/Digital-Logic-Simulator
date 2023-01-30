@@ -37,7 +37,8 @@ function updateLines(event){
 					gradient = ctx.createLinearGradient(x1, y1, x2, y2);
 					gradient.addColorStop(0, blocks[i].ref.style.backgroundColor);
 					gradient.addColorStop(1, blocks[i].outPins[j].connected[k].ref.parentElement.style.backgroundColor);
-					ctx.strokeStyle = gradient;
+					if (blocks[i].outPins[j].active || blocks[i].outPins[j].connected[k].active) ctx.strokeStyle = gradient;
+					else ctx.strokeStyle = "black";
 					ctx.beginPath();
 					ctx.moveTo(x1, y1);
 					ctx.lineTo(x2, y2);
@@ -57,7 +58,7 @@ function updateLines(event){
 				y1 = event.clientY;
 				y2 = blocks[i].pin.connected[j].ref.getBoundingClientRect().bottom - 5;
 				// This just looks better to me. Maybe I'll change it back later.
-				// ctx.strokeStyle = blocks[i].pin.connected[j].ref.parentElement.style.backgroundColor;
+				// if (blocks[i].pin.connected[j].active) ctx.strokeStyle = blocks[i].pin.connected[j].ref.parentElement.style.backgroundColor;
 				ctx.strokeStyle = "black";
 				ctx.beginPath();
 				ctx.moveTo(x1, y1);
