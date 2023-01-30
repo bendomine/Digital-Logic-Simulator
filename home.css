@@ -40,20 +40,38 @@ body{
 	background-color: inherit;
 }
 
-#input::before{
+.tooltip::before{
+	padding: 2px;
 	width: 100px;
-	height: 50px;
+	border-radius: 5px;
 	position: absolute;
 	top: 0;
 	left: 50%;
-	transform: translate(-50%, -20%);
+	transform: translate(-50%, -140%);
 	background-color: rgba(0.0, 0.0, 0.0, 0.7);
 	font-size: 13px;
 	content: "Double Click to Edit";
 	line-height: 13px;
 	transition: opacity 0.2s;
 	opacity: 0;
+	pointer-events: none;
 }
-#input:hover::before{
+.tooltip::after{
+	content: "";
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	transform: translate(-50%, -100%);
+	border-width: 6.5px;
+	border-style: solid;
+	border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
+	transition: opacity 0.2s;
+	opacity: 0;
+	pointer-events: none;
+}
+.tooltip:hover::before{
+	opacity: 1;
+}
+.tooltip:hover::after{
 	opacity: 1;
 }
