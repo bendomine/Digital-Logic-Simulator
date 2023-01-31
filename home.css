@@ -75,3 +75,41 @@ body{
 .tooltip:hover::after{
 	opacity: 1;
 }
+
+.toggle{
+	width: 60px;
+	height: 34px;
+	position: relative;
+	cursor: pointer;
+}
+.toggle::before{
+	content: "";
+	width: 60px;
+	height: 34px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #ccc;
+	border-radius: 34px;
+	transition: 0.4s;
+}
+.toggle:checked::before{
+	background-color: rgb(140, 140, 255);
+}
+.toggle::after{
+	content: "";
+	height: 26px;
+	width: 26px;
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	border-radius: 20px;
+	background-color: rgb(113, 113, 113);
+	transition: 0.4s;
+	/* box-shadow: rgba(1, 1, 1, 0.5) 1px 1px 3px; */
+}
+.toggle:checked::after{
+	background-color: rgb(23, 23, 255);
+	transform: translateX(26px);
+}
