@@ -56,5 +56,5 @@ function evaluate(){
 		}
 		blockQueue.splice(0, 1);
 	}
-
+	updateLines();
 }

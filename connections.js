@@ -154,3 +154,8 @@ function endWire(origin, event){
 	updateLines(event);
 
 }
+
+function clearWires(event, pin){
+	while (pin.connected.length > 0) pin.disconnect(pin.connected[0]);
+	updateLines(event);
+}

@@ -42,7 +42,10 @@ function initPins(block){
 			pin.side = 0;
 			block.inPins[i] = pin;
 			// Also, when the pin is clicked on, we need to create a new wire.
-			elem.onmousedown = (e) => {newWire(pin)};
+			elem.onmousedown = (e) => {
+				if (e.ctrlKey) clearWires(e, pin);
+				else newWire(pin);
+			};
 		}
 	}
 	// Believe it or not, this is almost exactly the same as the last bit of code!!
@@ -56,7 +59,10 @@ function initPins(block){
 			let pin = new Pin(elem, block);
 			pin.side = 1;
 			block.outPins[i] = pin;
-			elem.onmousedown = (e) => {newWire(pin)};
+			elem.onmousedown = (e) => {
+				if (e.ctrlKey) clearWires(e, pin);
+				else newWire(pin);
+			};
 		}
 	}
 	return block;
