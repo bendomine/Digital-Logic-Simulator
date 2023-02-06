@@ -1,6 +1,111 @@
+document.getElementById("edit").style.transform = "scale(0)";
+document.getElementById("edit").style.opacity = "0";
+document.getElementById("workspace").onmousedown = () => {
+	document.getElementById("edit").style.transform = "scale(0)";
+	document.getElementById("edit").style.opacity = "0";
+}
 document.getElementById("input").ondblclick = (event) => {
-	alert("Double Click on input");
+	let target;
+	if (event.target.classList.contains('block')) target = event.target;
+	else target = event.target.parentElement;
+	buildEditMenu(target);
 }
 document.getElementById("output").ondblclick = (event) => {
-	alert("Double Click on output");
+	let target;
+	if (event.target.classList.contains('block')) target = event.target;
+	else target = event.target.parentElement;
+	buildEditMenu(target);
+	
 }
+
+function buildEditMenu(triggerElem){
+	document.getElementById("edit").style.transform = "scale(1)";
+	document.getElementById("edit").style.opacity = "1";
+	document.getElementById("edit").replaceChildren();
+	let index = -1;
+	for (let i = 0; i < blocks.length; ++i){
+		if (blocks[i].ref == triggerElem){
+			index = i;
+			break;
+		}
+	}
+	if (index == -1) return;
+	if (blocks[index].operation == "input"){
+		for (let i = 0; i < blocks[index].outPins.length; ++i){
+			if (blocks[index].outPins[i] == null){
+				let text = document.createElement('i');
+				text.innerText = "Spacer";
+				let container = document.createElement('div');
+				container.classList.add("editPin");
+				container.appendChild(text);
+				document.getElementById("edit").appendChild(container);
+			}
+			else{
+				let toggle = document.createElement('input');
+				toggle.type = "checkbox";
+				toggle.classList.add("toggle");
+
+				let name = document.createElement('input');
+				name.type = "text";
+				name.classList.add("name");
+				name.placeholder = "Pin Label";
+
+				let button = document.createElement('input');
+				button.type = "button";
+				button.value = "Remove";
+				button.class = "remove";
+
+				let container = document.createElement('div');
+				container.classList.add("editPin");
+
+				container.appendChild(toggle);
+				container.appendChild(name);
+				container.appendChild(button);
+				document.getElementById("edit").appendChild(container);
+			}
+		}
+	}
+	else if (blocks[index].operation == "output"){
+		for (let i = 0; i < blocks[index].inPins.length; ++i){
+			if (blocks[index].inPins[i] == null){
+				let text = document.createElement('i');
+				text.innerText = "Spacer";
+				let container = document.createElement('div');
+				container.classList.add("editPin");
+				container.appendChild(text);
+				document.getElementById("edit").appendChild(container);
+			}
+			else{
+				let toggle = document.createElement('input');
+				toggle.type = "checkbox";
+				toggle.classList.add("toggle");
+
+				let name = document.createElement('input');
+				name.type = "text";
+				name.classList.add("name");
+				name.placeholder = "Pin Label";
+
+				let button = document.createElement('input');
+				button.type = "button";
+				button.value = "Remove";
+				button.class = "remove";
+
+				let container = document.createElement('div');
+				container.classList.add("editPin");
+
+				container.appendChild(toggle);
+				container.appendChild(name);
+				container.appendChild(button);
+				document.getElementById("edit").appendChild(container);
+			}
+		}
+	}
+}
+
+/*
+<div class="editPin">
+	<input type="checkbox" class="toggle">
+	<input type="text" class="name" placeholder="Pin Label">
+	<input type="button" value="Remove" class="remove">
+</div>
+*/

@@ -77,39 +77,82 @@ body{
 }
 
 .toggle{
-	width: 60px;
-	height: 34px;
+	width: 35px;
+	height: 19px;
 	position: relative;
 	cursor: pointer;
 }
 .toggle::before{
 	content: "";
-	width: 60px;
-	height: 34px;
+	width: 35px;
+	height: 20px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background-color: #ccc;
+	background-color: rgb(148, 148, 148);
 	border-radius: 34px;
-	transition: 0.4s;
+	transition: 0.25s;
 }
 .toggle:checked::before{
 	background-color: rgb(140, 140, 255);
 }
 .toggle::after{
 	content: "";
-	height: 26px;
-	width: 26px;
+	height: 16px;
+	width: 16px;
 	position: absolute;
-	top: 4px;
-	left: 4px;
+	top: 50%;
+	left: 2px;
+	transform: translate(0, -50%);
 	border-radius: 20px;
 	background-color: rgb(113, 113, 113);
-	transition: 0.4s;
+	transition: 0.25s;
 	/* box-shadow: rgba(1, 1, 1, 0.5) 1px 1px 3px; */
 }
 .toggle:checked::after{
 	background-color: rgb(23, 23, 255);
-	transform: translateX(26px);
+	transform: translate(15px, -50%);
+}
+
+#edit{
+	background-color: rgb(102, 102, 102);
+	border-radius: 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 99;
+	max-height: 200px;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	border: 5px solid rgb(102, 102, 102);
+	transition: transform 0.3s, opacity 0.1s;
+}
+#edit::-webkit-scrollbar{
+	width: 10px;
+}
+#edit::-webkit-scrollbar-track{
+	background-color: rgb(180, 180, 180);
+	opacity: 0.5;
+}
+#edit::-webkit-scrollbar-thumb{
+	background-color: grey;
+	border-radius: 10px;
+}
+#edit::-webkit-scrollbar-thumb:hover{
+	background-color: rgb(120, 117, 117);
+}
+.editPin{
+	display: flex;
+	background-color: #ccc;
+	padding: 5px;
+}
+.editPin:not(:last-child){
+	border-bottom: 2px solid rgb(102, 102, 102);
+}
+.editPin *{
+	align-items: center;
+	margin: 2px 6px 2px 6px;
+	font-family: monospace;
 }
