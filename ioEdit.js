@@ -1,8 +1,13 @@
+let currentTarget = null;
+
 document.getElementById("edit").style.transform = "scale(0)";
 document.getElementById("edit").style.opacity = "0";
 document.getElementById("workspace").onmousedown = () => {
 	document.getElementById("edit").style.transform = "scale(0)";
 	document.getElementById("edit").style.opacity = "0";
+	setTimeout(() => {
+		document.getElementById("edit").replaceChildren();
+	}, 50);
 }
 document.getElementById("input").ondblclick = (event) => {
 	let target;
@@ -100,6 +105,12 @@ function buildEditMenu(triggerElem){
 			}
 		}
 	}
+	let posY = triggerElem.offsetTop - 50 - document.getElementById('edit').offsetHeight;
+	let posX = triggerElem.offsetLeft + (triggerElem.offsetWidth / 2) - (document.getElementById("edit").offsetWidth / 2);
+	posY = posY >= 0 ? posY : 0;
+	posX = posX >= 0 ? posX : 0;
+	document.getElementById("edit").style.top = posY + "px";
+	document.getElementById("edit").style.left = posX + "px";
 }
 
 /*

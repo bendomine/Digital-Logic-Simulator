@@ -37,6 +37,8 @@ function initPins(block){
 			elem.style.top = inTopPadding + 15 * i + "px";
 			block.ref.appendChild(elem);
 			elem.style.left = "-7.5px";
+			let data = elem.dataset;
+			data.name = "Pin";
 			// Now that the element is created and added, we need to create the pin object to attach.
 			let pin = new Pin(elem, block);
 			pin.side = 0;
@@ -56,6 +58,8 @@ function initPins(block){
 			elem.style.top = outTopPadding + 15 * i + "px";
 			block.ref.appendChild(elem);
 			elem.style.left = block.ref.offsetWidth - 10 + "px";
+			let data = elem.dataset;
+			data.name = "Pin";
 			let pin = new Pin(elem, block);
 			pin.side = 1;
 			block.outPins[i] = pin;
