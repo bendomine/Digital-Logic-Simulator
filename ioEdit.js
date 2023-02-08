@@ -5,9 +5,6 @@ document.getElementById("edit").style.opacity = "0";
 document.getElementById("workspace").onmousedown = () => {
 	document.getElementById("edit").style.transform = "scale(0)";
 	document.getElementById("edit").style.opacity = "0";
-	setTimeout(() => {
-		document.getElementById("edit").replaceChildren();
-	}, 50);
 }
 document.getElementById("input").ondblclick = (event) => {
 	let target;
@@ -34,6 +31,7 @@ function buildEditMenu(triggerElem){
 			break;
 		}
 	}
+	currentTarget = blocks[index];
 	if (index == -1) return;
 	if (blocks[index].operation == "input"){
 		for (let i = 0; i < blocks[index].outPins.length; ++i){
@@ -49,6 +47,12 @@ function buildEditMenu(triggerElem){
 				let toggle = document.createElement('input');
 				toggle.type = "checkbox";
 				toggle.classList.add("toggle");
+				toggle.checked = blocks[index].outPins[i].active;
+				toggle.onclick = (e) => {
+					let childNum = Array.from(e.target.parentNode.parentNode.children).indexOf(e.target.parentNode);
+					currentTarget.outPins[childNum].active = e.target.checked;
+					evaluate();
+				}
 
 				let name = document.createElement('input');
 				name.type = "text";
@@ -81,10 +85,6 @@ function buildEditMenu(triggerElem){
 				document.getElementById("edit").appendChild(container);
 			}
 			else{
-				let toggle = document.createElement('input');
-				toggle.type = "checkbox";
-				toggle.classList.add("toggle");
-
 				let name = document.createElement('input');
 				name.type = "text";
 				name.classList.add("name");
@@ -98,25 +98,16 @@ function buildEditMenu(triggerElem){
 				let container = document.createElement('div');
 				container.classList.add("editPin");
 
-				container.appendChild(toggle);
 				container.appendChild(name);
 				container.appendChild(button);
 				document.getElementById("edit").appendChild(container);
 			}
 		}
 	}
-	let posY = triggerElem.offsetTop - 50 - document.getElementById('edit').offsetHeight;
+	let posY = triggerElem.offsetTop - 35 - document.getElementById('edit').offsetHeight;
 	let posX = triggerElem.offsetLeft + (triggerElem.offsetWidth / 2) - (document.getElementById("edit").offsetWidth / 2);
 	posY = posY >= 0 ? posY : 0;
 	posX = posX >= 0 ? posX : 0;
 	document.getElementById("edit").style.top = posY + "px";
 	document.getElementById("edit").style.left = posX + "px";
 }
-
-/*
-<div class="editPin">
-	<input type="checkbox" class="toggle">
-	<input type="text" class="name" placeholder="Pin Label">
-	<input type="button" value="Remove" class="remove">
-</div>
-*/

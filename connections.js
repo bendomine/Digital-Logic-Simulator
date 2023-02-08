@@ -152,6 +152,7 @@ function endWire(origin, event){
 	document.onmousemove = null;
 	document.onmousedown = null;
 	updateLines(event);
+	evaluate(event);
 
 }
 
