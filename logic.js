@@ -1,4 +1,4 @@
-function evaluate(){
+function evaluate(event, extraBlocks){
 	let input = 0;
 	for (let i = 0; i < blocks.length; ++i){
 		if (blocks[i].operation == "input"){
@@ -7,6 +7,7 @@ function evaluate(){
 		}
 	}
 	let blockQueue = [blocks[input]];
+	if (extraBlocks) blockQueue = extraBlocks.concat(blockQueue);
 	while (blockQueue.length > 0){
 		switch (blockQueue[0].operation){
 			case "and":
@@ -16,7 +17,6 @@ function evaluate(){
 				else blockQueue[0].outPins[0].active = false;
 				break;
 			case "or":
-				console.log("hi");
 				if (blockQueue[0].inPins[0].active || blockQueue[0].inPins[1].active){
 					blockQueue[0].outPins[0].active = true;
 				}
@@ -31,6 +31,9 @@ function evaluate(){
 				}
 				else blockQueue[0].outPins[0].active = false;
 				break;
+		}
+		for (let i = 0; i < blockQueue[0].inPins.length; ++i){
+			if (blockQueue[0].inPins[i] != null && !blockQueue[0].inPins[i].active && blockQueue[0].inPins[i].ref.classList.contains('isActive')) blockQueue[0].inPins[i].ref.classList.remove('isActive');
 		}
 		for (let i = 0; i < blockQueue[0].outPins.length; ++i){
 
@@ -56,5 +59,5 @@ function evaluate(){
 		}
 		blockQueue.splice(0, 1);
 	}
-	updateLines();
+	updateLines(event);
 }

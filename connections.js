@@ -126,12 +126,15 @@ function endWire(origin, event){
 		if (side != origin.side){
 			// Also important- we can never have two wires connecting to an input pin, so if you try to do so, the others
 			// 		get deleted.
-			if (origin.side == 0) for (let i = 0; i < origin.connected.length; ++i){
-				origin.disconnect(origin.connected[i]);
+			if (origin.side == 0){
+				for (let i = 0; i < origin.connected.length; ++i){
+					origin.disconnect(origin.connected[i]);
+				}
 			}
-			// I still can't decide if this if () for () notation looks neat or terrible.
-			else if (side == 0) for (let i = 0; i < blocks[block].inPins[pin].connected.length; ++i){
-				blocks[block].inPins[pin].disconnect(blocks[block].inPins[pin].connected[i]);
+			else if (side == 0){
+				for (let i = 0; i < blocks[block].inPins[pin].connected.length; ++i){
+					blocks[block].inPins[pin].disconnect(blocks[block].inPins[pin].connected[i]);
+				}
 			}
 
 			if (side == 0) origin.connect(blocks[block].inPins[pin]);
@@ -140,6 +143,9 @@ function endWire(origin, event){
 			for (let i = 0; i < blocks[0].pin.connected.length; ++i){
 				blocks[0].pin.disconnect(blocks[0].pin.connected[i]);
 			}
+
+			if (origin.side == 1) evaluate(event, [origin.block]);
+			else if (side == 1) evaluate(event, [blocks[block]]);
 		}
 		
 	}
@@ -151,12 +157,22 @@ function endWire(origin, event){
 	}
 	document.onmousemove = null;
 	document.onmousedown = null;
-	updateLines(event);
 	evaluate(event);
 
 }
 
 function clearWires(event, pin){
-	while (pin.connected.length > 0) pin.disconnect(pin.connected[0]);
-	updateLines(event);
+	let extraBlocks = [];
+	if (pin.side == 0){
+		pin.active = false;
+		extraBlocks.push(pin.block);
+	}
+	while (pin.connected.length > 0){
+		if (pin.connected[0].side == 0){
+			pin.connected[0].active = false;
+			extraBlocks.push(pin.connected[0].block);
+		}
+		pin.disconnect(pin.connected[0]);
+	}
+	evaluate(event, extraBlocks);
 }

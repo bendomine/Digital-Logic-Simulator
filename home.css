@@ -34,7 +34,9 @@ body{
 }
 
 .isActive{
-	background-color: red !important;
+	background-color: inherit!important;
+	/* filter: brightness(133%); */
+	box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
 }
 .block .pin:hover{
 	background-color: inherit;
@@ -179,4 +181,43 @@ body{
 	align-items: center;
 	margin: 2px 6px 2px 6px;
 	font-family: monospace;
+}
+
+#contextMenu{
+	position: absolute;
+	border-radius: 4px;
+	background-color: rgb(182, 182, 182);
+	z-index: 100;
+	width: 150px;
+	max-height: 220px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	transition: transform 0.2s;
+	transform-origin: top;
+	padding: 2px;
+}
+#contextMenu::-webkit-scrollbar{
+	display: none;
+}
+#contextMenu div{
+	margin: 1px;
+	font-family: monospace;
+	font-size: 16px;
+	padding: 3px;
+	border-radius: 2px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+#contextMenu div:first-child{
+	margin-bottom: 3px;
+	border-bottom: 1px solid grey;
+	position: sticky;
+	top: -5px;
+	background-color: rgb(182, 182, 182);
+}
+#contextMenu div:not(:first-child){
+	cursor: pointer;
+}
+#contextMenu div:not(:first-child):hover{
+	background-color: rgb(140, 140, 140);
 }
