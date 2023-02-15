@@ -1,10 +1,14 @@
 let currentTarget = null;
 
-document.getElementById("edit").style.transform = "scale(0)";
-document.getElementById("edit").style.opacity = "0";
+document.getElementById("editIn").style.transform = "scale(0)";
+document.getElementById("editIn").style.opacity = "0";
+document.getElementById("editOut").style.transform = "scale(0)";
+document.getElementById("editOut").style.opacity = "0";
 document.getElementById("workspace").onmousedown = () => {
-	document.getElementById("edit").style.transform = "scale(0)";
-	document.getElementById("edit").style.opacity = "0";
+	document.getElementById("editIn").style.transform = "scale(0)";
+	document.getElementById("editIn").style.opacity = "0";
+	document.getElementById("editOut").style.transform = "scale(0)";
+	document.getElementById("editOut").style.opacity = "0";
 }
 document.getElementById("input").ondblclick = (event) => {
 	let target;

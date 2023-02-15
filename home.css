@@ -95,7 +95,7 @@ body{
 .pin[style*="-7.5"]::before{
 	transform: translate(calc(-100% - 10px), -50%);
 }
-.pin[style*="60"]::before,.pin[style*="104"]::before{
+.pin:not([style*="-7.5"])::before{
 	transform: translate(10px, -50%);
 }
 .pin:hover::before{
