@@ -72,6 +72,7 @@ function buildEditMenu(triggerElem){
 				button.type = "button";
 				button.value = "Remove";
 				button.class = "remove";
+				button.onclick = removePin;
 
 				let container = document.createElement('div');
 				container.classList.add("editPin");
@@ -112,6 +113,7 @@ function buildEditMenu(triggerElem){
 				button.type = "button";
 				button.value = "Remove";
 				button.class = "remove";
+				button.onclick = removePin;
 
 				let container = document.createElement('div');
 				container.classList.add("editPin");
@@ -144,4 +146,21 @@ function saveName(event){
 	currentTarget.ref.children[index].dataset.name = event.target.previousSibling.value;
 	event.target.previousSibling.value = "";
 	event.target.disabled = true;	
+}
+
+function removePin(event){
+	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
+	let temp = currentTarget.ref.innerText;
+	if (currentTarget.operation == "input"){
+		clearWires(null, currentTarget.outPins[index]);
+		currentTarget.outPins.splice(index, 1);
+	}
+	else{
+		clearWires(null, currentTarget.inPins[index]);
+		currentTarget.inPins.splice(index, 1);
+	}
+	currentTarget.ref.replaceChildren();
+	currentTarget.ref.innerText = temp;
+	initPins(currentTarget);
+	buildEditMenu(currentTarget.ref);
 }
