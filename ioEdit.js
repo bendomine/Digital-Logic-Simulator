@@ -38,10 +38,24 @@ function buildEditMenu(triggerElem){
 		for (let i = 0; i < blocks[index].outPins.length; ++i){
 			if (blocks[index].outPins[i] == null){
 				let text = document.createElement('i');
-				text.innerText = "Spacer";
+				text.innerHTML = "Spacer (<u>remove</u>)";
+				text.children[0].style.cursor = "pointer";
+				text.children[0].onclick = removePin;
 				let container = document.createElement('div');
 				container.classList.add("editPin");
 				container.appendChild(text);
+				if (i < blocks[index].outPins.length - 1){
+					let addPin = document.createElement('div');
+					let addSpacer = document.createElement('div');
+					addPin.innerText = "+";
+					addSpacer.innerText = "+";
+					addPin.classList.add('addNew');
+					addPin.classList.add('addPin');
+					addSpacer.classList.add('addNew');
+					addSpacer.classList.add('addSpacer');
+					container.appendChild(addPin);
+					container.appendChild(addSpacer);
+				}
 				document.getElementById("edit").appendChild(container);
 			}
 			else{
@@ -73,14 +87,26 @@ function buildEditMenu(triggerElem){
 				button.value = "Remove";
 				button.class = "remove";
 				button.onclick = removePin;
-
+				
 				let container = document.createElement('div');
 				container.classList.add("editPin");
-
+				
 				container.appendChild(toggle);
 				container.appendChild(name);
 				container.appendChild(save);
 				container.appendChild(button);
+				if (i < blocks[index].outPins.length - 1){
+					let addPin = document.createElement('div');
+					let addSpacer = document.createElement('div');
+					addPin.innerText = "+";
+					addSpacer.innerText = "+";
+					addPin.classList.add('addNew');
+					addPin.classList.add('addPin');
+					addSpacer.classList.add('addNew');
+					addSpacer.classList.add('addSpacer');
+					container.appendChild(addPin);
+					container.appendChild(addSpacer);
+				}
 				document.getElementById("edit").appendChild(container);
 			}
 		}
@@ -89,10 +115,24 @@ function buildEditMenu(triggerElem){
 		for (let i = 0; i < blocks[index].inPins.length; ++i){
 			if (blocks[index].inPins[i] == null){
 				let text = document.createElement('i');
-				text.innerText = "Spacer";
+				text.innerHTML = "Spacer (<u>remove</u>)";
+				text.children[0].style.cursor = "pointer";
+				text.children[0].onclick = removePin;
 				let container = document.createElement('div');
 				container.classList.add("editPin");
 				container.appendChild(text);
+				if (i < blocks[index].inPins.length - 1){
+					let addPin = document.createElement('div');
+					let addSpacer = document.createElement('div');
+					addPin.innerText = "+";
+					addSpacer.innerText = "+";
+					addPin.classList.add('addNew');
+					addPin.classList.add('addPin');
+					addSpacer.classList.add('addNew');
+					addSpacer.classList.add('addSpacer');
+					container.appendChild(addPin);
+					container.appendChild(addSpacer);
+				}
 				document.getElementById("edit").appendChild(container);
 			}
 			else{
@@ -114,13 +154,25 @@ function buildEditMenu(triggerElem){
 				button.value = "Remove";
 				button.class = "remove";
 				button.onclick = removePin;
-
+				
 				let container = document.createElement('div');
 				container.classList.add("editPin");
-
+				
 				container.appendChild(name);
 				container.appendChild(save);
 				container.appendChild(button);
+				if (i < blocks[index].inPins.length - 1){
+					let addPin = document.createElement('div');
+					let addSpacer = document.createElement('div');
+					addPin.innerText = "+";
+					addSpacer.innerText = "+";
+					addPin.classList.add('addNew');
+					addPin.classList.add('addPin');
+					addSpacer.classList.add('addNew');
+					addSpacer.classList.add('addSpacer');
+					container.appendChild(addPin);
+					container.appendChild(addSpacer);
+				}
 				document.getElementById("edit").appendChild(container);
 			}
 		}
@@ -149,15 +201,22 @@ function saveName(event){
 }
 
 function removePin(event){
-	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
 	let temp = currentTarget.ref.innerText;
-	if (currentTarget.operation == "input"){
-		clearWires(null, currentTarget.outPins[index]);
-		currentTarget.outPins.splice(index, 1);
+	if (event.target.tagName != "U"){
+		let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
+		if (currentTarget.operation == "input"){
+			clearWires(event, currentTarget.outPins[index]);
+			currentTarget.outPins.splice(index, 1);
+		}
+		else{
+			clearWires(event, currentTarget.inPins[index]);
+			currentTarget.inPins.splice(index, 1);
+		}
 	}
 	else{
-		clearWires(null, currentTarget.inPins[index]);
-		currentTarget.inPins.splice(index, 1);
+		let index = Array.from(event.target.parentElement.parentElement.parentElement.children).indexOf(event.target.parentElement.parentElement);
+		if (currentTarget.operation == "input") currentTarget.outPins.splice(index, 1);
+		else currentTarget.inPins.splice(index, 1);
 	}
 	currentTarget.ref.replaceChildren();
 	currentTarget.ref.innerText = temp;

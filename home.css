@@ -174,6 +174,7 @@ body{
 	display: flex;
 	background-color: #ccc;
 	padding: 5px;
+	position: relative;
 }
 .editPin:not(:last-child){
 	border-bottom: 2px solid rgb(102, 102, 102);
@@ -183,8 +184,41 @@ body{
 	margin: 2px 6px 2px 6px;
 	font-family: monospace;
 }
+.editPin:has(.addPin:hover){
+	border-bottom: 2px dashed green;
+}
+.editPin:has(.addSpacer:hover){
+	border-bottom: 2px dashed red;
+}
+.addNew{
+	position: absolute;
+	top: calc(100% + 1.3px);
+	transform: translate(0, -50%);
+	z-index: 1;
+	margin: 0;
+	opacity: 0;
+	text-align: center;
+	font-size: 30px;
+	font-family: impact;
+	cursor: pointer;
+}
+.addNew:hover{
+	opacity: 1;
+}
+.addPin{
+	color: green;
+	left: 0;
+}
+.addSpacer{
+	color: red;
+	right: 0;
+}
+
 .name{
 	width: 100px;
+}
+.editPin u{
+	margin: 0px;
 }
 
 #contextMenu{
