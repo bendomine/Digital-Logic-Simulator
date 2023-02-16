@@ -1,14 +1,10 @@
 let currentTarget = null;
 
-document.getElementById("editIn").style.transform = "scale(0)";
-document.getElementById("editIn").style.opacity = "0";
-document.getElementById("editOut").style.transform = "scale(0)";
-document.getElementById("editOut").style.opacity = "0";
+document.getElementById("edit").style.transform = "scale(0)";
+document.getElementById("edit").style.opacity = "0";
 document.getElementById("workspace").onmousedown = () => {
-	document.getElementById("editIn").style.transform = "scale(0)";
-	document.getElementById("editIn").style.opacity = "0";
-	document.getElementById("editOut").style.transform = "scale(0)";
-	document.getElementById("editOut").style.opacity = "0";
+	document.getElementById("edit").style.transform = "scale(0)";
+	document.getElementById("edit").style.opacity = "0";
 }
 document.getElementById("input").ondblclick = (event) => {
 	let target;
@@ -28,6 +24,7 @@ function buildEditMenu(triggerElem){
 	document.getElementById("edit").style.transform = "scale(1)";
 	document.getElementById("edit").style.opacity = "1";
 	document.getElementById("edit").replaceChildren();
+	document.getElementById("edit").scrollTop = 0;
 	let index = -1;
 	for (let i = 0; i < blocks.length; ++i){
 		if (blocks[i].ref == triggerElem){
@@ -61,7 +58,15 @@ function buildEditMenu(triggerElem){
 				let name = document.createElement('input');
 				name.type = "text";
 				name.classList.add("name");
-				name.placeholder = "Pin Label";
+				if (blocks[index].outPins[i].ref.dataset.name == "Pin") name.placeholder = "Pin Label";
+				else name.placeholder = blocks[index].outPins[i].ref.dataset.name;
+				let save = document.createElement('input');
+				save.type = "button";
+				save.value = "Save";
+				save.class = "save";
+				save.disabled = true;
+				save.onclick = saveName;
+	
 
 				let button = document.createElement('input');
 				button.type = "button";
@@ -73,6 +78,7 @@ function buildEditMenu(triggerElem){
 
 				container.appendChild(toggle);
 				container.appendChild(name);
+				container.appendChild(save);
 				container.appendChild(button);
 				document.getElementById("edit").appendChild(container);
 			}
@@ -93,6 +99,14 @@ function buildEditMenu(triggerElem){
 				name.type = "text";
 				name.classList.add("name");
 				name.placeholder = "Pin Label";
+				if (blocks[index].inPins[i].ref.dataset.name == "Pin") name.placeholder = "Pin Label";
+				else name.placeholder = blocks[index].inPins[i].ref.dataset.name;
+
+				let save = document.createElement('input');
+				save.type = "button";
+				save.value = "Save";
+				save.disabled = true;
+				save.onclick = saveName;
 
 				let button = document.createElement('input');
 				button.type = "button";
@@ -103,6 +117,7 @@ function buildEditMenu(triggerElem){
 				container.classList.add("editPin");
 
 				container.appendChild(name);
+				container.appendChild(save);
 				container.appendChild(button);
 				document.getElementById("edit").appendChild(container);
 			}
@@ -114,4 +129,19 @@ function buildEditMenu(triggerElem){
 	posX = posX >= 0 ? posX : 0;
 	document.getElementById("edit").style.top = posY + "px";
 	document.getElementById("edit").style.left = posX + "px";
+
+	for (let i = 0; i < document.getElementsByClassName('name').length; ++i){
+		document.getElementsByClassName('name')[i].addEventListener('keyup', () => {
+			if (document.getElementsByClassName('name')[i].value != "") document.getElementsByClassName('name')[i].nextSibling.disabled = false;
+			else document.getElementsByClassName('name')[i].nextSibling.disabled = true;
+		});
+	}
+}
+
+function saveName(event){
+	event.target.previousSibling.placeholder = event.target.previousSibling.value;
+	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
+	currentTarget.ref.children[index].dataset.name = event.target.previousSibling.value;
+	event.target.previousSibling.value = "";
+	event.target.disabled = true;	
 }
