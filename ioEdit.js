@@ -24,7 +24,7 @@ function buildEditMenu(triggerElem){
 	document.getElementById("edit").style.transform = "scale(1)";
 	document.getElementById("edit").style.opacity = "1";
 	document.getElementById("edit").replaceChildren();
-	document.getElementById("edit").scrollTop = 0;
+	//document.getElementById("edit").scrollTop = 0;
 	let index = -1;
 	for (let i = 0; i < blocks.length; ++i){
 		if (blocks[i].ref == triggerElem){
@@ -53,6 +53,8 @@ function buildEditMenu(triggerElem){
 					addPin.classList.add('addPin');
 					addSpacer.classList.add('addNew');
 					addSpacer.classList.add('addSpacer');
+					addPin.onclick = newPin;
+					addSpacer.onclick = newSpacer;
 					container.appendChild(addPin);
 					container.appendChild(addSpacer);
 				}
@@ -104,6 +106,8 @@ function buildEditMenu(triggerElem){
 					addPin.classList.add('addPin');
 					addSpacer.classList.add('addNew');
 					addSpacer.classList.add('addSpacer');
+					addPin.onclick = newPin;
+					addSpacer.onclick = newSpacer;
 					container.appendChild(addPin);
 					container.appendChild(addSpacer);
 				}
@@ -130,6 +134,8 @@ function buildEditMenu(triggerElem){
 					addPin.classList.add('addPin');
 					addSpacer.classList.add('addNew');
 					addSpacer.classList.add('addSpacer');
+					addPin.onclick = newPin;
+					addSpacer.onclick = newSpacer;
 					container.appendChild(addPin);
 					container.appendChild(addSpacer);
 				}
@@ -170,6 +176,8 @@ function buildEditMenu(triggerElem){
 					addPin.classList.add('addPin');
 					addSpacer.classList.add('addNew');
 					addSpacer.classList.add('addSpacer');
+					addPin.onclick = newPin;
+					addSpacer.onclick = newSpacer;
 					container.appendChild(addPin);
 					container.appendChild(addSpacer);
 				}
@@ -222,4 +230,29 @@ function removePin(event){
 	currentTarget.ref.innerText = temp;
 	initPins(currentTarget);
 	buildEditMenu(currentTarget.ref);
+	evaluate(event);
+}
+
+function newSpacer(event){
+	let temp = currentTarget.ref.innerText;
+	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
+	if (currentTarget.operation == "input") currentTarget.outPins.splice(index + 1, 0, null);
+	else currentTarget.inPins.splice(index + 1, 0, null);
+	currentTarget.ref.replaceChildren();
+	currentTarget.ref.innerText = temp;
+	initPins(currentTarget);
+	buildEditMenu(currentTarget.ref);
+	evaluate(event)
+}
+
+function newPin(event){
+	let temp = currentTarget.ref.innerText;
+	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
+	if (currentTarget.operation == "input") currentTarget.outPins.splice(index + 1, 0, 1);
+	else currentTarget.inPins.splice(index + 1, 0, 1);
+	currentTarget.ref.replaceChildren();
+	currentTarget.ref.innerText = temp;
+	initPins(currentTarget);
+	buildEditMenu(currentTarget.ref);
+	evaluate(event)
 }

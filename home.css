@@ -188,7 +188,7 @@ body{
 	border-bottom: 2px dashed green;
 }
 .editPin:has(.addSpacer:hover){
-	border-bottom: 2px dashed red;
+	border-bottom: 2px dashed blue;
 }
 .addNew{
 	position: absolute;
@@ -210,7 +210,7 @@ body{
 	left: 0;
 }
 .addSpacer{
-	color: red;
+	color: blue;
 	right: 0;
 }
 
