@@ -44,7 +44,7 @@ function buildEditMenu(triggerElem){
 				let container = document.createElement('div');
 				container.classList.add("editPin");
 				container.appendChild(text);
-				if (i < blocks[index].outPins.length - 1){
+				if (i < blocks[index].outPins.length - 1 || blocks[index].outPins.length < 2){
 					let addPin = document.createElement('div');
 					let addSpacer = document.createElement('div');
 					addPin.innerText = "+";
@@ -97,7 +97,7 @@ function buildEditMenu(triggerElem){
 				container.appendChild(name);
 				container.appendChild(save);
 				container.appendChild(button);
-				if (i < blocks[index].outPins.length - 1){
+				if (i < blocks[index].outPins.length - 1 || blocks[index].outPins.length < 2){
 					let addPin = document.createElement('div');
 					let addSpacer = document.createElement('div');
 					addPin.innerText = "+";
@@ -125,7 +125,7 @@ function buildEditMenu(triggerElem){
 				let container = document.createElement('div');
 				container.classList.add("editPin");
 				container.appendChild(text);
-				if (i < blocks[index].inPins.length - 1){
+				if (i < blocks[index].inPins.length - 1 || blocks[index].inPins.length < 2){
 					let addPin = document.createElement('div');
 					let addSpacer = document.createElement('div');
 					addPin.innerText = "+";
@@ -167,7 +167,7 @@ function buildEditMenu(triggerElem){
 				container.appendChild(name);
 				container.appendChild(save);
 				container.appendChild(button);
-				if (i < blocks[index].inPins.length - 1){
+				if (i < blocks[index].inPins.length - 1 || blocks[index].inPins.length < 2){
 					let addPin = document.createElement('div');
 					let addSpacer = document.createElement('div');
 					addPin.innerText = "+";
@@ -209,6 +209,7 @@ function saveName(event){
 }
 
 function removePin(event){
+	if (document.getElementById('edit').children.length <= 1) return;
 	let temp = currentTarget.ref.innerText;
 	if (event.target.tagName != "U"){
 		let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);

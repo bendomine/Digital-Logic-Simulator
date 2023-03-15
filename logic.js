@@ -1,3 +1,62 @@
+let data = [{
+	"name": "OR",
+	"components":
+	[
+		{
+			"name": "INPUT",
+			"inPins": 0,
+			"outPins": 2,
+			"connections": [
+				[[1, 0]],
+				[[2, 0]]
+			]			
+		},
+		{
+			"name": "NOT",
+			"inPins": 1,
+			"outPins": 1,
+			"connections": [
+				[[3, 0]]
+			]
+		},
+		{
+			"name": "NOT",
+			"inPins": 1,
+			"outPins": 1,
+			"connections": [
+				[[3, 1]]
+			]
+		},
+		{
+			"name": "AND",
+			"inPins": 2,
+			"outPins": 1,
+			"connections": [
+				[[4, 0]]
+			]
+		},
+		{
+			"name": "NOT",
+			"inPins": 1,
+			"outPins": 1,
+			"connections": [
+				[[5, 0]]
+			]
+		},
+		{
+			"name": "OUTPUT",
+			"inPins": 1,
+			"outPins": 0,
+			"connections": []
+		}
+	]
+}]
+
+function evaluateFromData(index, input){
+	let block = data[index];
+	
+}
+
 function evaluate(event, extraBlocks){
 	let input = 0;
 	for (let i = 0; i < blocks.length; ++i){
@@ -16,12 +75,12 @@ function evaluate(event, extraBlocks){
 				}
 				else blockQueue[0].outPins[0].active = false;
 				break;
-			case "or":
-				if (blockQueue[0].inPins[0].active || blockQueue[0].inPins[1].active){
-					blockQueue[0].outPins[0].active = true;
-				}
-				else blockQueue[0].outPins[0].active = false;
-				break;
+			// case "or":
+			// 	if (blockQueue[0].inPins[0].active || blockQueue[0].inPins[1].active){
+			// 		blockQueue[0].outPins[0].active = true;
+			// 	}
+			// 	else blockQueue[0].outPins[0].active = false;
+			// 	break;
 			case "not":
 				blockQueue[0].outPins[0].active = !blockQueue[0].inPins[0].active;
 				break;
@@ -30,6 +89,22 @@ function evaluate(event, extraBlocks){
 					blockQueue[0].outPins[0].active = true;
 				}
 				else blockQueue[0].outPins[0].active = false;
+				break;
+			default:
+				let output = [];
+				for (let i = 0; i < data.length; ++i){
+					if (data[i].name == blockQueue[0].operation){
+						let input = [];
+						for (let j = 0; j < blockQueue[0].inPins.length; ++j){
+							input.push(blockQueue[0].inPins[j].active);
+						}
+						output = evaluateFromData(i, input);
+						break;
+					}
+				}
+				for (let i = 0; i < output.length; ++i){
+					blockQueue[0].outPins[i].active = output[i];
+				}
 				break;
 		}
 		for (let i = 0; i < blockQueue[0].inPins.length; ++i){
