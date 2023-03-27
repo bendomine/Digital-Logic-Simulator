@@ -4,7 +4,11 @@ body{
 	margin: 0px;
 }
 #workspace{
-	background-color: rgb(116, 116, 116);
+	background-color: rgb(69, 69, 69);
+	background-size: 40px 40px;
+	background-image:
+		linear-gradient(to right, grey 2px, transparent 1px),
+		linear-gradient(to bottom, grey 2px, transparent 1px);
 	width: 100vw;
 	height: 100vh;
 }
@@ -20,7 +24,7 @@ body{
 	font-family: monospace;
 	color: white;
 	text-align: center;
-	border: 3px solid rgb(83, 83, 83);
+	border: 3px solid rgb(60, 60, 60);
 	user-select: none;
 }
 .block .pin{
@@ -224,15 +228,16 @@ body{
 #contextMenu{
 	position: absolute;
 	border-radius: 4px;
-	background-color: rgb(182, 182, 182);
+	background: rgba(93, 93, 93, 0.5);
 	z-index: 100;
 	width: 150px;
 	max-height: 220px;
-	overflow-y: auto;
 	overflow-x: hidden;
-	transition: transform 0.2s;
+	transition: transform 0.2s, opacity 0.2s;
 	transform-origin: top;
 	padding: 2px;
+	backdrop-filter: blur(6px);
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.452);
 }
 #contextMenu::-webkit-scrollbar{
 	display: none;
@@ -246,16 +251,20 @@ body{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-#contextMenu div:first-child{
+#contextMenu div:has(strong){
 	margin-bottom: 3px;
 	border-bottom: 1px solid grey;
-	position: sticky;
-	top: -5px;
-	background-color: rgb(182, 182, 182);
+
 }
-#contextMenu div:not(:first-child){
+.options{
+	max-height: 100px;
+	overflow-y: auto;
+}
+#contextMenu div:not(:first-child) div{
 	cursor: pointer;
+	transition: background-color 0.1s;
+	background-color: rgba(0, 0, 0, 0);
 }
-#contextMenu div:not(:first-child):hover{
-	background-color: rgb(140, 140, 140);
+#contextMenu div:not(:first-child) div:hover{
+	background-color: grey;
 }

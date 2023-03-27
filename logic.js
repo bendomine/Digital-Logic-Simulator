@@ -4,8 +4,8 @@ let data = [{
 	[
 		{
 			"name": "INPUT",
-			"inPins": 0,
-			"outPins": 2,
+			"inPins": [],
+			"outPins": [false, false],
 			"connections": [
 				[[1, 0]],
 				[[2, 0]]
@@ -13,48 +13,58 @@ let data = [{
 		},
 		{
 			"name": "NOT",
-			"inPins": 1,
-			"outPins": 1,
+			"inPins": [false],
+			"outPins": [false],
 			"connections": [
 				[[3, 0]]
 			]
 		},
 		{
 			"name": "NOT",
-			"inPins": 1,
-			"outPins": 1,
+			"inPins": [false],
+			"outPins": [false],
 			"connections": [
 				[[3, 1]]
 			]
 		},
 		{
 			"name": "AND",
-			"inPins": 2,
-			"outPins": 1,
+			"inPins": [false, false],
+			"outPins": [false],
 			"connections": [
 				[[4, 0]]
 			]
 		},
 		{
 			"name": "NOT",
-			"inPins": 1,
-			"outPins": 1,
+			"inPins": [false],
+			"outPins": [false],
 			"connections": [
 				[[5, 0]]
 			]
 		},
 		{
 			"name": "OUTPUT",
-			"inPins": 1,
-			"outPins": 0,
+			"inPins": [false],
+			"outPins": [],
 			"connections": []
 		}
 	]
 }]
 
 function evaluateFromData(index, input){
-	let block = data[index];
-	
+	let block = structuredClone(data[index]);
+	let components = block.components;
+	components[0].outPins = input;
+	let blockQueue = [components[0]];
+	while (blockQueue.length > 0){
+		for (let i = 0; i < blockQueue[0].outPins.length; ++i){
+			for (let k = 0; k < blockQueue[0].connections[i].length; ++k){
+				components[blockQueue[0].connections[i][k][0]].inPins[[blockQueue[0].connections[i][k][1]]] = blockQueue[0].outPins[i];
+			}
+		}
+	}
+
 }
 
 function evaluate(event, extraBlocks){

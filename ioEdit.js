@@ -243,7 +243,7 @@ function newSpacer(event){
 	currentTarget.ref.innerText = temp;
 	initPins(currentTarget);
 	buildEditMenu(currentTarget.ref);
-	evaluate(event)
+	evaluate(event);
 }
 
 function newPin(event){
