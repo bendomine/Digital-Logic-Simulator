@@ -5,7 +5,7 @@ let blocks = [
 	{type: "block", ref: document.getElementsByClassName('block')[0], inPins: [1, 1], outPins: [1], operation: "and"},
 	{type: "block", ref: document.getElementsByClassName('block')[1], inPins: [1, 1], outPins: [1], operation: "and"},
 	{type: "block", ref: document.getElementsByClassName('block')[2], inPins: [1, 1], outPins: [1], operation: "and"},
-	{type: "block", ref: document.getElementsByClassName('block')[3], inPins: [1, 1], outPins: [1], operation: "or"},
+	{type: "block", ref: document.getElementsByClassName('block')[3], inPins: [1, 1], outPins: [1], operation: "or_but_better"},
 	{type: "block", ref: document.getElementsByClassName('block')[4], inPins: [1], outPins: [1], operation: "not"},
 	{type: "block", ref: document.getElementsByClassName('block')[5], inPins: [1], outPins: [1], operation: "not"},
 	{type: "block", ref: document.getElementsByClassName('block')[6], inPins: [1], outPins: [1], operation: "not"},

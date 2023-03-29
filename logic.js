@@ -1,56 +1,86 @@
-let data = [{
-	"name": "or",
-	"components":
-	[
-		{
-			"name": "input",
-			"inPins": [],
-			"outPins": [false, false],
-			"connections": [
-				[[1, 0]],
-				[[2, 0]]
-			]			
-		},
-		{
-			"name": "not",
-			"inPins": [false],
-			"outPins": [false],
-			"connections": [
-				[[3, 0]]
-			]
-		},
-		{
-			"name": "not",
-			"inPins": [false],
-			"outPins": [false],
-			"connections": [
-				[[3, 1]]
-			]
-		},
-		{
-			"name": "and",
-			"inPins": [false, false],
-			"outPins": [false],
-			"connections": [
-				[[4, 0]]
-			]
-		},
-		{
-			"name": "not",
-			"inPins": [false],
-			"outPins": [false],
-			"connections": [
-				[[5, 0]]
-			]
-		},
-		{
-			"name": "output",
-			"inPins": [false],
-			"outPins": [],
-			"connections": []
-		}
-	]
-}]
+let data = [
+	{
+		"name": "or",
+		"components":
+		[
+			{
+				"name": "input",
+				"inPins": [],
+				"outPins": [false, false],
+				"connections": [
+					[[1, 0]],
+					[[2, 0]]
+				]			
+			},
+			{
+				"name": "not",
+				"inPins": [false],
+				"outPins": [false],
+				"connections": [
+					[[3, 0]]
+				]
+			},
+			{
+				"name": "not",
+				"inPins": [false],
+				"outPins": [false],
+				"connections": [
+					[[3, 1]]
+				]
+			},
+			{
+				"name": "and",
+				"inPins": [false, false],
+				"outPins": [false],
+				"connections": [
+					[[4, 0]]
+				]
+			},
+			{
+				"name": "not",
+				"inPins": [false],
+				"outPins": [false],
+				"connections": [
+					[[5, 0]]
+				]
+			},
+			{
+				"name": "output",
+				"inPins": [false],
+				"outPins": [],
+				"connections": []
+			}
+		]
+	},
+	{
+		"name": "or_but_better",
+		"components": [
+			{
+				"name": "input",
+				"inPins": [],
+				"outPins": [false, false],
+				"connections": [
+					[[1, 0]],
+					[[1, 1]]
+				]
+			},
+			{
+				"name": "or",
+				"inPins": [false, false],
+				"outPins": [false],
+				"connections": [
+					[[2, 0]]
+				]
+			},
+			{
+				"name": "output",
+				"inPins": [false],
+				"outPins": [],
+				"connections": []
+			}
+		]
+	}
+]
 
 function evaluateFromData(index, input){
 	let block = structuredClone(data[index]);
@@ -72,6 +102,22 @@ function evaluateFromData(index, input){
 				blockQueue.push(blockQueue[0]);
 				blockQueue.splice(0, 1);
 				continue;
+			}
+		}
+		else{
+			let output = [];
+			for (let i = 0; i < data.length; ++i){
+				if (data[i].name == blockQueue[0].name){
+					let input = [];
+					for (let j = 0; j < blockQueue[0].inPins.length; ++j){
+						input.push(blockQueue[0].inPins[j]);
+					}
+					output = evaluateFromData(i, input);
+					break;
+				}
+			}
+			for (let i = 0; i < output.length; ++i){
+				blockQueue[0].outPins[i] = output[i];
 			}
 		}
 		for (let i = 0; i < blockQueue[0].outPins.length; ++i){
