@@ -1,9 +1,9 @@
 let data = [{
-	"name": "OR",
+	"name": "or",
 	"components":
 	[
 		{
-			"name": "INPUT",
+			"name": "input",
 			"inPins": [],
 			"outPins": [false, false],
 			"connections": [
@@ -12,7 +12,7 @@ let data = [{
 			]			
 		},
 		{
-			"name": "NOT",
+			"name": "not",
 			"inPins": [false],
 			"outPins": [false],
 			"connections": [
@@ -20,7 +20,7 @@ let data = [{
 			]
 		},
 		{
-			"name": "NOT",
+			"name": "not",
 			"inPins": [false],
 			"outPins": [false],
 			"connections": [
@@ -28,7 +28,7 @@ let data = [{
 			]
 		},
 		{
-			"name": "AND",
+			"name": "and",
 			"inPins": [false, false],
 			"outPins": [false],
 			"connections": [
@@ -36,7 +36,7 @@ let data = [{
 			]
 		},
 		{
-			"name": "NOT",
+			"name": "not",
 			"inPins": [false],
 			"outPins": [false],
 			"connections": [
@@ -44,7 +44,7 @@ let data = [{
 			]
 		},
 		{
-			"name": "OUTPUT",
+			"name": "output",
 			"inPins": [false],
 			"outPins": [],
 			"connections": []
@@ -55,15 +55,36 @@ let data = [{
 function evaluateFromData(index, input){
 	let block = structuredClone(data[index]);
 	let components = block.components;
-	components[0].outPins = input;
 	let blockQueue = [components[0]];
 	while (blockQueue.length > 0){
+		if (blockQueue[0].name == "input"){
+			blockQueue[0].outPins = input;
+		}
+		else if (blockQueue[0].name == "not"){
+			blockQueue[0].outPins[0] = !blockQueue[0].inPins[0];
+		}
+		else if (blockQueue[0].name == "and"){
+			blockQueue[0].outPins[0] = (blockQueue[0].inPins[0] && blockQueue[0].inPins[1]);
+		}
+		else if (blockQueue[0].name == "output"){
+			if (blockQueue.length == 1) break;
+			else{
+				blockQueue.push(blockQueue[0]);
+				blockQueue.splice(0, 1);
+				continue;
+			}
+		}
 		for (let i = 0; i < blockQueue[0].outPins.length; ++i){
 			for (let k = 0; k < blockQueue[0].connections[i].length; ++k){
 				components[blockQueue[0].connections[i][k][0]].inPins[[blockQueue[0].connections[i][k][1]]] = blockQueue[0].outPins[i];
+				if (blockQueue.indexOf(components[blockQueue[0].connections[i][k][0]]) == -1){
+					blockQueue.push(components[blockQueue[0].connections[i][k][0]]);
+				}
 			}
 		}
+		blockQueue.splice(0, 1);
 	}
+	return components[components.length - 1].inPins;
 
 }
 
