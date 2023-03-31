@@ -1,91 +1,102 @@
+// let data = [
+// 	{
+// 		"name": "or",
+// 		"components":
+// 		[
+// 			{
+// 				"name": "input",
+// 				"inPins": [],
+// 				"outPins": [false, null, false],
+// 				"connections": [
+// 					[[1, 0]],
+// 					null,
+// 					[[2, 0]]
+// 				]			
+// 			},
+// 			{
+// 				"name": "not",
+// 				"inPins": [false],
+// 				"outPins": [false],
+// 				"connections": [
+// 					[[3, 0]]
+// 				]
+// 			},
+// 			{
+// 				"name": "not",
+// 				"inPins": [false],
+// 				"outPins": [false],
+// 				"connections": [
+// 					[[3, 1]]
+// 				]
+// 			},
+// 			{
+// 				"name": "and",
+// 				"inPins": [false, false],
+// 				"outPins": [false],
+// 				"connections": [
+// 					[[4, 0]]
+// 				]
+// 			},
+// 			{
+// 				"name": "not",
+// 				"inPins": [false],
+// 				"outPins": [false],
+// 				"connections": [
+// 					[[5, 0]]
+// 				]
+// 			},
+// 			{
+// 				"name": "output",
+// 				"inPins": [false],
+// 				"outPins": [],
+// 				"connections": []
+// 			}
+// 		]
+// 	},
+// 	{
+// 		"name": "or_but_better",
+// 		"components": [
+// 			{
+// 				"name": "input",
+// 				"inPins": [],
+// 				"outPins": [false, false],
+// 				"connections": [
+// 					[[1, 0]],
+// 					[[1, 1]]
+// 				]
+// 			},
+// 			{
+// 				"name": "or",
+// 				"inPins": [false, false],
+// 				"outPins": [false],
+// 				"connections": [
+// 					[[2, 0]]
+// 				]
+// 			},
+// 			{
+// 				"name": "output",
+// 				"inPins": [false],
+// 				"outPins": [],
+// 				"connections": []
+// 			}
+// 		]
+// 	}
+// ]
 let data = [
-	{
-		"name": "or",
-		"components":
-		[
-			{
-				"name": "input",
-				"inPins": [],
-				"outPins": [false, false],
-				"connections": [
-					[[1, 0]],
-					[[2, 0]]
-				]			
-			},
-			{
-				"name": "not",
-				"inPins": [false],
-				"outPins": [false],
-				"connections": [
-					[[3, 0]]
-				]
-			},
-			{
-				"name": "not",
-				"inPins": [false],
-				"outPins": [false],
-				"connections": [
-					[[3, 1]]
-				]
-			},
-			{
-				"name": "and",
-				"inPins": [false, false],
-				"outPins": [false],
-				"connections": [
-					[[4, 0]]
-				]
-			},
-			{
-				"name": "not",
-				"inPins": [false],
-				"outPins": [false],
-				"connections": [
-					[[5, 0]]
-				]
-			},
-			{
-				"name": "output",
-				"inPins": [false],
-				"outPins": [],
-				"connections": []
-			}
-		]
-	},
-	{
-		"name": "or_but_better",
-		"components": [
-			{
-				"name": "input",
-				"inPins": [],
-				"outPins": [false, false],
-				"connections": [
-					[[1, 0]],
-					[[1, 1]]
-				]
-			},
-			{
-				"name": "or",
-				"inPins": [false, false],
-				"outPins": [false],
-				"connections": [
-					[[2, 0]]
-				]
-			},
-			{
-				"name": "output",
-				"inPins": [false],
-				"outPins": [],
-				"connections": []
-			}
-		]
-	}
-]
-
+	{"name":"my_or","components":[{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[]]},{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[]]},{"name":"input","inPins":[],"outPins":[false,false],"connections":[[[4,0]],[[5,0]]]},{"name":"halfadder","inPins":[false,false],"outPins":[false,false],"connections":[[],[]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[8,0]]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[8,1]]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[9,0]]]},{"name":"or","inPins":[false,null,false],"outPins":[false],"connections":[[]]},{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[[6,0]]]},{"name":"output","inPins":[false],"outPins":[],"connections":[]}]}
+];
+// data.push(JSON.parse('{"name":"my_or","components":[{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[]]},{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[]]},{"name":"input","inPins":[],"outPins":[false,false],"connections":[[[4,0]],[[5,0]]]},{"name":"halfadder","inPins":[false,false],"outPins":[false,false],"connections":[[],[]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[8,0]]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[8,1]]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[9,0]]]},{"name":"or","inPins":[false,null,false],"outPins":[false],"connections":[[]]},{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[[6,0]]]},{"name":"output","inPins":[false],"outPins":[],"connections":[]}]}'));
 function evaluateFromData(index, input){
 	let block = structuredClone(data[index]);
 	let components = block.components;
-	let blockQueue = [components[0]];
+	let idx = -1;
+	for (let i = 0; i < components.length; ++i){
+		if (components[i].name == "input"){
+			idx = i;
+			break;
+		}
+	}
+	let blockQueue = [components[idx]];
 	while (blockQueue.length > 0){
 		if (blockQueue[0].name == "input"){
 			blockQueue[0].outPins = input;
@@ -121,16 +132,25 @@ function evaluateFromData(index, input){
 			}
 		}
 		for (let i = 0; i < blockQueue[0].outPins.length; ++i){
-			for (let k = 0; k < blockQueue[0].connections[i].length; ++k){
-				components[blockQueue[0].connections[i][k][0]].inPins[[blockQueue[0].connections[i][k][1]]] = blockQueue[0].outPins[i];
-				if (blockQueue.indexOf(components[blockQueue[0].connections[i][k][0]]) == -1){
-					blockQueue.push(components[blockQueue[0].connections[i][k][0]]);
+			if (blockQueue[0].outPins[i] != null){
+				for (let k = 0; k < blockQueue[0].connections[i].length; ++k){
+					components[blockQueue[0].connections[i][k][0]].inPins[[blockQueue[0].connections[i][k][1]]] = blockQueue[0].outPins[i];
+					if (blockQueue.indexOf(components[blockQueue[0].connections[i][k][0]]) == -1){
+						blockQueue.push(components[blockQueue[0].connections[i][k][0]]);
+					}
 				}
 			}
 		}
 		blockQueue.splice(0, 1);
 	}
-	return components[components.length - 1].inPins;
+	idx = -1;
+	for (let i = 0; i < components.length; ++i){
+		if (components[i].name == "output"){
+			idx = i;
+			break;
+		}
+	}
+	return components[idx].inPins;
 
 }
 
@@ -173,7 +193,8 @@ function evaluate(event, extraBlocks){
 					if (data[i].name == blockQueue[0].operation){
 						let input = [];
 						for (let j = 0; j < blockQueue[0].inPins.length; ++j){
-							input.push(blockQueue[0].inPins[j].active);
+							if (blockQueue[0].inPins[j] != null) input.push(blockQueue[0].inPins[j].active);
+							else input.push(null);
 						}
 						output = evaluateFromData(i, input);
 						break;
