@@ -9,8 +9,8 @@ let blocks = [
 	{type: "block", ref: document.getElementsByClassName('block')[4], inPins: [1], outPins: [1], operation: "not"},
 	{type: "block", ref: document.getElementsByClassName('block')[5], inPins: [1], outPins: [1], operation: "not"},
 	{type: "block", ref: document.getElementsByClassName('block')[6], inPins: [1, 1], outPins: [1, 1], operation: "halfadder"},
-	{type: "block", ref: document.getElementById('input'), inPins: [], outPins: [1, 1, 1, 1, null, 1, 1, 1, 1], operation: "input"},
-	{type: "block", ref: document.getElementById('output'), inPins: [1, 1, 1, 1, null, 1, 1, 1, 1], outPins: [], operation: "output"}
+	{type: "block", ref: document.getElementById('input'), inPins: [], outPins: [1, 1], operation: "input"},
+	{type: "block", ref: document.getElementById('output'), inPins: [1], outPins: [], operation: "output"}
 ];
 for (let i = 0; i < blocks.length; ++i){
 	if (blocks[i].type == "block"){

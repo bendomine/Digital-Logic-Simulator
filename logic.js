@@ -82,9 +82,7 @@
 // 		]
 // 	}
 // ]
-let data = [
-	{"name":"my_or","components":[{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[]]},{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[]]},{"name":"input","inPins":[],"outPins":[false,false],"connections":[[[4,0]],[[5,0]]]},{"name":"halfadder","inPins":[false,false],"outPins":[false,false],"connections":[[],[]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[8,0]]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[8,1]]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[9,0]]]},{"name":"or","inPins":[false,null,false],"outPins":[false],"connections":[[]]},{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[[6,0]]]},{"name":"output","inPins":[false],"outPins":[],"connections":[]}]}
-];
+let data = [];
 // data.push(JSON.parse('{"name":"my_or","components":[{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[]]},{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[]]},{"name":"input","inPins":[],"outPins":[false,false],"connections":[[[4,0]],[[5,0]]]},{"name":"halfadder","inPins":[false,false],"outPins":[false,false],"connections":[[],[]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[8,0]]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[8,1]]]},{"name":"not","inPins":[false],"outPins":[false],"connections":[[[9,0]]]},{"name":"or","inPins":[false,null,false],"outPins":[false],"connections":[[]]},{"name":"and","inPins":[false,false],"outPins":[false],"connections":[[[6,0]]]},{"name":"output","inPins":[false],"outPins":[],"connections":[]}]}'));
 function evaluateFromData(index, input){
 	let block = structuredClone(data[index]);

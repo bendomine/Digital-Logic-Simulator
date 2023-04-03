@@ -11,15 +11,19 @@ document.getElementById('workspace').addEventListener('mousedown', (e) => {
 	if (document.getElementById('contextMenu').style.opacity == "1") document.getElementById('contextMenu').style.opacity = "0";
 });
 
+document.getElementById('contextOptions').children[0].onclick = (e) => {createBlockFromCMenu('and', e);}
+document.getElementById('contextOptions').children[1].onclick = (e) => {createBlockFromCMenu('not', e);}
+
+function createBlockFromCMenu(name, event){
+	let newBlock = createBlock(name);
+	if (document.getElementById('contextMenu').style.transform == "scaleY(1)") document.getElementById('contextMenu').style.transform = "scaleY(0)";
+	if (document.getElementById('contextMenu').style.opacity == "1") document.getElementById('contextMenu').style.opacity = "0";
+	console.log(event.x);
+	newBlock.ref.style.top = event.y + "px";
+	newBlock.ref.style.left = event.x + "px";
+}
+
 function createBlock(name){
-	let idx = -1;
-	for (let i = 0; i < data.length; ++i){
-		if (data[i].name == name){
-			idx = i;
-			break;
-		}
-	}
-	let blockComponents = data[idx].components;
 	let newDiv = document.createElement('div');
 	newDiv.classList.add('block');
 	newDiv.style.backgroundColor = "rgb(255, 91, 91)";
@@ -30,5 +34,36 @@ function createBlock(name){
 	newBlock.operation = name;
 	newBlock.type = "block";
 	newBlock.ref = newDiv;
-	newBlock.inPins = 
+	if (name != "and" && name != "not"){
+		let idx = -1;
+		for (let i = 0; i < data.length; ++i){
+			if (data[i].name == name){
+				idx = i;
+				break;
+			}
+		}
+		let blockComponents = data[idx].components;
+		let inIdx = -1;
+		let outIdx = -1;
+		for (let i = 0; i < blockComponents.length; ++i){
+			if (blockComponents[i].name == "input") inIdx = i;
+			else if (blockComponents[i].name == "output") outIdx = i;
+		}
+		newBlock.inPins = structuredClone(blockComponents[inIdx].outPins);
+		newBlock.outPins = structuredClone(blockComponents[outIdx].inPins);
+	}
+	else if (name == "and"){
+		newBlock.inPins = [1, 1];
+		newBlock.outPins = [1];
+		newDiv.innerText = "AND";
+	}
+	else{
+		newBlock.inPins = [1];
+		newBlock.outPins = [1];
+		newDiv.innerText = "NOT";
+	}
+	newBlock = initPins(newBlock);
+	blocks.push(newBlock);
+	updateLayers();
+	return newBlock;
 }

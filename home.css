@@ -11,6 +11,7 @@ body{
 		linear-gradient(to bottom, grey 2px, transparent 1px);
 	width: 100vw;
 	height: 100vh;
+	background-position: -2px -1px;
 }
 #canvas{
 	background-color: rgba(0, 0, 0, 0);
@@ -238,6 +239,7 @@ body{
 	padding: 2px;
 	backdrop-filter: blur(6px);
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.452);
+	color: white;
 }
 #contextMenu::-webkit-scrollbar{
 	display: none;
