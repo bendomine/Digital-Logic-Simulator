@@ -13,7 +13,7 @@ for (let i = 0; i < blocks.length; ++i){
 }
 addEventListener('keydown', (e) => {
 	if (e.key == "Shift") isShiftPressed = true;
-	else if (e.key == "Backspace") deleteBlocks();
+	else if (e.key == "Backspace") deleteBlocks(e);
 });
 addEventListener('keyup', (e) => {
 	if (e.key == "Shift") isShiftPressed = false;
@@ -159,7 +159,7 @@ function updateSelectDrag(event){
 	for (let i = 1; i < blocks.length; ++i){
 		let r2 = blocks[i].ref.getBoundingClientRect();
 		if (((r2.left > r1.left && r2.left < r1.right) || (r2.right > r1.left && r2.right < r1.right)) && ((r2.top > r1.top && r2.top < r1.bottom) || (r2.bottom > r1.top && r2.bottom < r1.bottom))){
-			selectedBlocks.push(blocks[i]);
+			if (selectedBlocks.indexOf(blocks[i]) == -1) selectedBlocks.push(blocks[i]);
 			if (!blocks[i].ref.classList.contains('isSelected')) blocks[i].ref.classList.add('isSelected');
 		}
 		else if (selectedBlocks.indexOf(blocks[i]) != -1 && !isShiftPressed){
