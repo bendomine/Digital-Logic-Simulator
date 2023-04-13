@@ -28,6 +28,9 @@ body{
 	border: 3px solid rgb(60, 60, 60);
 	user-select: none;
 }
+.block.isSelected{
+	box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.25);
+}
 .block .pin{
 	position: absolute;
 	width: 10px;
@@ -161,6 +164,9 @@ body{
 	border: 5px solid rgb(102, 102, 102);
 	transition: transform 0.3s, opacity 0.1s;
 }
+#edit:has(div:only-child){
+	overflow: hidden;
+}
 #edit::-webkit-scrollbar{
 	width: 10px;
 }
@@ -269,4 +275,15 @@ body{
 }
 #contextMenu div:not(:first-child) div:hover{
 	background-color: grey;
+}
+
+#selector{
+	position: absolute;
+	top: 500px;
+	left: 204px;
+	width: 50px;
+	height: 200px;
+	z-index: 99;
+	background-color: rgba(122, 122, 122, 0.5);
+	border: 1px solid rgba(175, 175, 175, 0.7);
 }

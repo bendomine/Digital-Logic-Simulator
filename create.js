@@ -18,7 +18,6 @@ function createBlockFromCMenu(name, event){
 	let newBlock = createBlock(name);
 	if (document.getElementById('contextMenu').style.transform == "scaleY(1)") document.getElementById('contextMenu').style.transform = "scaleY(0)";
 	if (document.getElementById('contextMenu').style.opacity == "1") document.getElementById('contextMenu').style.opacity = "0";
-	console.log(event.x);
 	newBlock.ref.style.top = event.y + "px";
 	newBlock.ref.style.left = event.x + "px";
 }
@@ -26,9 +25,11 @@ function createBlockFromCMenu(name, event){
 function createBlock(name){
 	let newDiv = document.createElement('div');
 	newDiv.classList.add('block');
-	newDiv.style.backgroundColor = "rgb(255, 91, 91)";
+	// newDiv.style.backgroundColor = "rgb(255, 91, 91)";
 	newDiv.innerText = name;
-	newDiv.onmousedown = startDrag;
+	newDiv.addEventListener('mousedown', startDrag);
+	newDiv.addEventListener('mousedown', selectBlock);
+	newDiv.style.backgroundColor = "hsl(" + Math.random() * 360 + ", 100%, 68%)";
 	document.getElementById('workspace').appendChild(newDiv);
 	let newBlock = {};
 	newBlock.operation = name;

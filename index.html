@@ -8,16 +8,15 @@
 	<link rel="stylesheet" href="home.css">
 </head>
 <body>
+	<!-- <div id="sidebar">
+		<div id="sidebarOptions">
+			<div>AND</div>
+			<div>NOT</div>
+		</div>
+		<div id="encapsulateButton" onclick="encapsulate()">Encapsulate</div>
+	</div> -->
 	<div id="workspace">
-		<canvas id="canvas"></canvas>
-		<div class="block" style="background-color: rgb(69, 69, 255);">AND</div>
-		<div class="block" style="background-color: rgb(69, 69, 255);">AND</div>
-		<div class="block" style="background-color: rgb(69, 69, 255);">AND</div>
-		<!-- <div class="block" style="background-color: rgb(255, 91, 91);">MY_OR</div> -->
-		<div class="block" style="background-color: rgb(73, 255, 124);">NOT</div>
-		<div class="block" style="background-color: rgb(73, 255, 124);">NOT</div>
-		<div class="block" style="background-color: rgb(73, 255, 124);">NOT</div>
-		<div class="block" style="background-color: rgb(255, 220, 93);">HALFADDER</div>
+		<canvas id="canvas" draggable="false"></canvas>
 		<div class="block tooltip" id="input" style="background-color:rgb(95, 158, 160)">INPUT</div>
 		<div class="block tooltip" id="output" style="background-color:rgb(95, 158, 160)">OUTPUT</div>
 	</div>
@@ -29,6 +28,7 @@
 			<div>NOT</div>
 		</div>
 	</div>
+	<div id="selector" draggable="false"></div>
 
 
 

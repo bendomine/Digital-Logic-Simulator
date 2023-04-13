@@ -1,3 +1,6 @@
+addEventListener('keypress', (e) => {
+	if (e.key == "e") encapsulate();
+})
 function encapsulate(){
 	let newData = {};
 	newData.name = prompt("What should be the name?");
