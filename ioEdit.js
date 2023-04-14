@@ -238,7 +238,12 @@ function newSpacer(event){
 	let temp = currentTarget.ref.innerText;
 	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
 	if (currentTarget.operation == "input") currentTarget.outPins.splice(index + 1, 0, null);
-	else currentTarget.inPins.splice(index + 1, 0, null);
+	else{
+		for (let i = 0; i < currentTarget.inPins.length; ++i){
+			if (currentTarget.inPins[i] != null) clearWires(event, currentTarget.inPins[i]);
+		}
+		currentTarget.inPins.splice(index + 1, 0, null);
+	}
 	currentTarget.ref.replaceChildren();
 	currentTarget.ref.innerText = temp;
 	initPins(currentTarget);
@@ -250,7 +255,12 @@ function newPin(event){
 	let temp = currentTarget.ref.innerText;
 	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
 	if (currentTarget.operation == "input") currentTarget.outPins.splice(index + 1, 0, 1);
-	else currentTarget.inPins.splice(index + 1, 0, 1);
+	else{
+		for (let i = 0; i < currentTarget.inPins.length; ++i){
+			if (currentTarget.inPins[i] != null) clearWires(event, currentTarget.inPins[i]);
+		}
+		currentTarget.inPins.splice(index + 1, 0, 1);
+	}
 	currentTarget.ref.replaceChildren();
 	currentTarget.ref.innerText = temp;
 	initPins(currentTarget);

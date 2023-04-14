@@ -199,7 +199,7 @@ function evaluate(event, extraBlocks){
 					}
 				}
 				for (let i = 0; i < output.length; ++i){
-					blockQueue[0].outPins[i].active = output[i];
+					if (output[i] != null) blockQueue[0].outPins[i].active = output[i];
 				}
 				break;
 		}
