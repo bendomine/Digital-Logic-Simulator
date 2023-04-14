@@ -9,12 +9,16 @@ function encapsulate(){
 	// Starting at one because of the mouse, which is in the blocks array at position 0. This also means that components index + 1 = blocks index.
 	for (let i = 1; i < blocks.length; ++i){
 		let component = {};
+		if (blocks[i].operation == "input" || blocks[i].operation == "output") component.pinNames = [];
 		component.name = blocks[i].operation;
 		component.inPins = [];
 		component.outPins = [];
 		component.connections = [];
 		for (let j = 0; j < blocks[i].inPins.length; ++j){
-			if (blocks[i].inPins[j] != null) component.inPins.push(false);
+			if (blocks[i].inPins[j] != null){
+				component.inPins.push(false);
+				if (component.pinNames) component.pinNames.push(blocks[i].inNames[j]);
+			}
 			else component.inPins.push(null);
 		}
 		for (let j = 0; j < blocks[i].outPins.length; ++j){
@@ -24,6 +28,7 @@ function encapsulate(){
 				for (let k = 0; k < blocks[i].outPins[j].connected.length; ++k){
 					component.connections[j].push([]);
 				}
+				if (component.pinNames) component.pinNames.push(blocks[i].outNames[j]);
 			}
 			else{
 				component.outPins.push(null);

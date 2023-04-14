@@ -204,8 +204,10 @@ function saveName(event){
 	event.target.previousSibling.placeholder = event.target.previousSibling.value;
 	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
 	currentTarget.ref.children[index].dataset.name = event.target.previousSibling.value;
+	if (currentTarget.operation == "input") currentTarget.outNames[index] = event.target.previousSibling.value;
+	else currentTarget.inNames[index] = event.target.previousSibling.value;
 	event.target.previousSibling.value = "";
-	event.target.disabled = true;	
+	event.target.disabled = true;
 }
 
 function removePin(event){

@@ -1,8 +1,8 @@
 // Test code; this will be deleted (ish)
 let blocks = [
 	{type: "mouse", pin: new Pin(null)},
-	{type: "block", ref: document.getElementById('input'), inPins: [], outPins: [1, 1], operation: "input"},
-	{type: "block", ref: document.getElementById('output'), inPins: [1], outPins: [], operation: "output"}
+	{type: "block", ref: document.getElementById('input'), inPins: [], outPins: [1, 1], inNames: [], outNames: ["Pin", "Pin"], operation: "input"},
+	{type: "block", ref: document.getElementById('output'), inPins: [1], outPins: [], inNames: ["Pin"], outNames: [], operation: "output"}
 ];
 for (let i = 0; i < blocks.length; ++i){
 	if (blocks[i].type == "block"){

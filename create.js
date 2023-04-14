@@ -52,15 +52,21 @@ function createBlock(name){
 		}
 		newBlock.inPins = structuredClone(blockComponents[inIdx].outPins);
 		newBlock.outPins = structuredClone(blockComponents[outIdx].inPins);
+		newBlock.inNames = structuredClone(blockComponents[inIdx].pinNames);
+		newBlock.outNames = structuredClone(blockComponents[outIdx].pinNames);
 	}
 	else if (name == "and"){
 		newBlock.inPins = [1, 1];
 		newBlock.outPins = [1];
+		newBlock.inNames = ["In 1", "In 2"];
+		newBlock.outNames = ["Out 1"];
 		newDiv.innerText = "AND";
 	}
 	else{
 		newBlock.inPins = [1];
 		newBlock.outPins = [1];
+		newBlock.inNames = ["In 1"];
+		newBlock.outNames = ["Out 1"];
 		newDiv.innerText = "NOT";
 	}
 	newBlock = initPins(newBlock);
