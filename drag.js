@@ -65,21 +65,24 @@ function startDrag(event){
 // If you're dragging a block, this function is called whenever you move your mouse.
 function moveElement(event){
 	// Honestly I forgot why this works. I hope it doesn't break.
-	newX = oldX + draggedBlock.offsetLeft - event.clientX;
-	newY = oldY + draggedBlock.offsetTop - event.clientY;
-	let plannedTop = draggedBlock.offsetTop - newY;
-	let plannedLeft = draggedBlock.offsetLeft - newX;
-	if (plannedTop + draggedBlock.offsetHeight > innerHeight){
-		plannedTop = innerHeight - draggedBlock.offsetHeight;
+	for (let i = 0; i < selectedBlocks.length; ++i){
+		newX = oldX + draggedBlock.offsetLeft - event.clientX;
+		newY = oldY + draggedBlock.offsetTop - event.clientY;
+		let plannedTop = draggedBlock.offsetTop - newY;
+		let plannedLeft = draggedBlock.offsetLeft - newX;
+		if (plannedTop + draggedBlock.offsetHeight > innerHeight){
+			plannedTop = innerHeight - draggedBlock.offsetHeight;
+		}
+		else if (plannedTop < 0) plannedTop = 0;
+		if (plannedLeft + draggedBlock.offsetWidth > innerWidth){
+			plannedLeft = innerWidth - draggedBlock.offsetWidth;
+		}
+		else if (plannedLeft < 0) plannedLeft = 0;
+		// I kind of went through a phase with the `${}` thing.
+		draggedBlock.style.top = `${plannedTop}px`;
+		draggedBlock.style.left = `${plannedLeft}px`;
+
 	}
-	else if (plannedTop < 0) plannedTop = 0;
-	if (plannedLeft + draggedBlock.offsetWidth > innerWidth){
-		plannedLeft = innerWidth - draggedBlock.offsetWidth;
-	}
-	else if (plannedLeft < 0) plannedLeft = 0;
-	// I kind of went through a phase with the `${}` thing.
-	draggedBlock.style.top = `${plannedTop}px`;
-	draggedBlock.style.left = `${plannedLeft}px`;
 	updateLines(event);
 }
 

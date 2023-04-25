@@ -29,7 +29,7 @@ function createBlock(name){
 	newDiv.innerText = name;
 	newDiv.addEventListener('mousedown', startDrag);
 	newDiv.addEventListener('mousedown', selectBlock);
-	newDiv.style.backgroundColor = "hsl(" + Math.random() * 360 + ", 100%, 68%)";
+	// newDiv.style.backgroundColor = "hsl(" + Math.random() * 360 + ", 100%, 68%)";
 	document.getElementById('workspace').appendChild(newDiv);
 	let newBlock = {};
 	newBlock.operation = name;
@@ -46,6 +46,7 @@ function createBlock(name){
 		let blockComponents = data[idx].components;
 		let inIdx = -1;
 		let outIdx = -1;
+		newDiv.style.backgroundColor = data[idx].color;
 		for (let i = 0; i < blockComponents.length; ++i){
 			if (blockComponents[i].name == "input") inIdx = i;
 			else if (blockComponents[i].name == "output") outIdx = i;
@@ -61,6 +62,7 @@ function createBlock(name){
 		newBlock.inNames = ["In 1", "In 2"];
 		newBlock.outNames = ["Out 1"];
 		newDiv.innerText = "AND";
+		newDiv.style.backgroundColor = "rgb(255, 91, 91)";
 	}
 	else{
 		newBlock.inPins = [1];
@@ -68,9 +70,19 @@ function createBlock(name){
 		newBlock.inNames = ["In 1"];
 		newBlock.outNames = ["Out 1"];
 		newDiv.innerText = "NOT";
+		newDiv.style.backgroundColor = "rgb(140, 255, 123)";
 	}
 	newBlock = initPins(newBlock);
 	blocks.push(newBlock);
 	updateLayers();
 	return newBlock;
+}
+
+function collapseSidebar(){
+	document.getElementById('sidebar').style.left = "-20%";
+	document.getElementById('expandButton').style.opacity = "1";
+}
+function expandSidebar(){
+	document.getElementById('sidebar').style.left = "0";
+	document.getElementById('expandButton').style.opacity = "0";
 }

@@ -1,3 +1,6 @@
+*{
+	user-select: none;
+}
 body{
 	overflow: hidden;
 	overflow-wrap: none;
@@ -235,7 +238,8 @@ body{
 #contextMenu{
 	position: absolute;
 	border-radius: 4px;
-	background: rgba(93, 93, 93, 0.5);
+	/* background: rgba(93, 93, 93, 0.5); */
+	background-color: rgba(36, 36, 36, 0.3);
 	z-index: 100;
 	width: 150px;
 	max-height: 220px;
@@ -246,6 +250,7 @@ body{
 	backdrop-filter: blur(6px);
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.452);
 	color: white;
+	user-select: none;
 }
 #contextMenu::-webkit-scrollbar{
 	display: none;
@@ -286,4 +291,81 @@ body{
 	z-index: 99;
 	background-color: rgba(122, 122, 122, 0.5);
 	border: 1px solid rgba(175, 175, 175, 0.7);
+}
+
+#sidebar{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 15%;
+	height: 100%;
+	z-index: 99;
+	border-right: 3px solid rgb(171, 171, 171);
+	background-color: rgba(36, 36, 36, 0.7);
+	backdrop-filter: blur(6px);
+	transition: left 0.2s;
+	color: white;
+	font-family: monospace;
+	font-size: 17px;
+}
+#collapseButton{
+	position: absolute;
+	top: 7px;
+	right: 7px;
+	width: 15px;
+	height: 15px;
+	transform: rotate(45deg);
+	border-bottom: 3px solid rgb(180, 180, 180);
+	border-left: 3px solid rgb(180, 180, 180);
+	cursor: pointer;
+	border-radius: 2px;
+}
+#collapseButton::after{
+	content: "";
+	position: absolute;
+	top: 7px;
+	right: 7px;
+	width: 15px;
+	height: 15px;
+	border-bottom: 3px solid rgb(180, 180, 180);
+	border-left: 3px solid rgb(180, 180, 180);
+	border-radius: 2px;
+}
+#expandButton{
+	position: absolute;
+	top: 7px;
+	left: 0px;
+	width: 15px;
+	height: 15px;
+	transform: rotate(-135deg);
+	border-bottom: 3px solid rgb(255, 255, 255);
+	border-left: 3px solid rgb(255, 255, 255);
+	cursor: pointer;
+	border-radius: 2px;
+	z-index: 98;
+	transition: opacity 0.2s;
+}
+#expandButton::after{
+	content: "";
+	position: absolute;
+	top: 7px;
+	right: 7px;
+	width: 15px;
+	height: 15px;
+	border-bottom: 3px solid rgb(255, 255, 255);
+	border-left: 3px solid rgb(255, 255, 255);
+	border-radius: 2px;
+}
+#sidebarOptions{
+	margin-top: 30px;
+	width: 100%;
+}
+#sidebarOptions p{
+	margin: 0px;
+	padding-left: 5px;
+	cursor: pointer;
+	transition: background-color 0.1s;
+}
+#sidebarOptions p:hover{
+	background-color: grey;
 }

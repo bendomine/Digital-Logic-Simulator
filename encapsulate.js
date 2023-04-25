@@ -1,9 +1,7 @@
-addEventListener('keypress', (e) => {
-	if (e.key == "e") encapsulate();
-})
 function encapsulate(){
 	let newData = {};
 	newData.name = prompt("What should be the name?");
+	newData.color = prompt("What should be the color?");
 	let newComponents = [];
 	// First loop adds all blocks to components.
 	// Starting at one because of the mouse, which is in the blocks array at position 0. This also means that components index + 1 = blocks index.
@@ -58,4 +56,9 @@ function encapsulate(){
 		createBlockFromCMenu(newData.name, e);
 	}
 	document.getElementById('contextOptions').appendChild(newOption);
+	document.getElementById('contextBackgroundStyle').innerHTML += `#contextOptions div:nth-child(${document.getElementById('contextOptions').children.length}):hover{background-color: ${newData.color}!important;}`;
+	let newSidebarOption = document.createElement('p');
+	newSidebarOption.innerText = newData.name;
+	document.getElementById('sidebarOptions').appendChild(newSidebarOption);
+	document.getElementById('sidebarBackgroundStyle').innerHTML += `#sidebarOptions p:nth-child(${document.getElementById('sidebarOptions').children.length}):hover{background-color: ${newData.color}!important;}`;
 }
