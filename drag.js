@@ -1,3 +1,5 @@
+
+
 // Test code; this will be deleted (ish)
 let blocks = [
 	{type: "mouse", pin: new Pin(null)},
@@ -93,8 +95,6 @@ function endDrag(event){
 	draggedBlock = null;
 }
 
-// This visually sets the layering of the blocks such that the strong survive on top and the weak wither 
-// 		in the shadows of the others.
 function updateLayers(){
 	for (let i = 0; i < blocks.length; ++i){
 		if (blocks[i].type == "block") blocks[i].ref.style.zIndex = `${i}`;

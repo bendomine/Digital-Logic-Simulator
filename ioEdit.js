@@ -202,10 +202,19 @@ function buildEditMenu(triggerElem){
 
 function saveName(event){
 	event.target.previousSibling.placeholder = event.target.previousSibling.value;
-	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
+	let arr = Array.from(event.target.parentElement.parentElement.children);
+	for (let i = 0; i < arr.length; ++i){
+		if (arr[i].children[0].tagName == "I"){
+			arr.splice(i, 1);
+			i--;
+		}
+	}
+
+	console.log(index);
+	console.log(currentTarget.ref.children);
 	currentTarget.ref.children[index].dataset.name = event.target.previousSibling.value;
-	if (currentTarget.operation == "input") currentTarget.outNames[index] = event.target.previousSibling.value;
-	else currentTarget.inNames[index] = event.target.previousSibling.value;
+	if (currentTarget.operation == "input") currentTarget.outNames[Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement)] = event.target.previousSibling.value;
+	else currentTarget.inNames[Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement)] = event.target.previousSibling.value;
 	event.target.previousSibling.value = "";
 	event.target.disabled = true;
 }
@@ -216,18 +225,26 @@ function removePin(event){
 	if (event.target.tagName != "U"){
 		let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
 		if (currentTarget.operation == "input"){
+			currentTarget.outNames.splice(index, 1);
 			clearWires(event, currentTarget.outPins[index]);
 			currentTarget.outPins.splice(index, 1);
 		}
 		else{
+			currentTarget.inNames.splice(index, 1);
 			clearWires(event, currentTarget.inPins[index]);
 			currentTarget.inPins.splice(index, 1);
 		}
 	}
 	else{
 		let index = Array.from(event.target.parentElement.parentElement.parentElement.children).indexOf(event.target.parentElement.parentElement);
-		if (currentTarget.operation == "input") currentTarget.outPins.splice(index, 1);
-		else currentTarget.inPins.splice(index, 1);
+		if (currentTarget.operation == "input"){
+			currentTarget.outNames.splice(index, 1);
+			currentTarget.outPins.splice(index, 1);
+		}
+		else{
+			currentTarget.inNames.splice(index, 1);
+			currentTarget.inPins.splice(index, 1);
+		}
 	}
 	currentTarget.ref.replaceChildren();
 	currentTarget.ref.innerText = temp;
@@ -239,11 +256,15 @@ function removePin(event){
 function newSpacer(event){
 	let temp = currentTarget.ref.innerText;
 	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
-	if (currentTarget.operation == "input") currentTarget.outPins.splice(index + 1, 0, null);
+	if (currentTarget.operation == "input"){
+		currentTarget.outPins.splice(index + 1, 0, null);
+		currentTarget.outNames.splice(index + 1, 0, null);
+	}
 	else{
 		for (let i = 0; i < currentTarget.inPins.length; ++i){
 			if (currentTarget.inPins[i] != null) clearWires(event, currentTarget.inPins[i]);
 		}
+		currentTarget.inNames.splice(index + 1, 0, null);
 		currentTarget.inPins.splice(index + 1, 0, null);
 	}
 	currentTarget.ref.replaceChildren();
@@ -256,12 +277,16 @@ function newSpacer(event){
 function newPin(event){
 	let temp = currentTarget.ref.innerText;
 	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(event.target.parentElement);
-	if (currentTarget.operation == "input") currentTarget.outPins.splice(index + 1, 0, 1);
+	if (currentTarget.operation == "input"){
+		currentTarget.outPins.splice(index + 1, 0, 1);
+		currentTarget.outNames.splice(index + 1, 0, "Pin");
+	}
 	else{
 		for (let i = 0; i < currentTarget.inPins.length; ++i){
 			if (currentTarget.inPins[i] != null) clearWires(event, currentTarget.inPins[i]);
 		}
 		currentTarget.inPins.splice(index + 1, 0, 1);
+		currentTarget.inNames.splice(index + 1, 0, "Pin");
 	}
 	currentTarget.ref.replaceChildren();
 	currentTarget.ref.innerText = temp;
