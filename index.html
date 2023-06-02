@@ -1,61 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Logic Gates Simulator</title>
-	<link rel="stylesheet" href="home.css">
-</head>
-<body>
-	<div id="workspace">
-		<div id="expandButton" onclick="expandSidebar()" style="opacity: 0;"></div>
-		<div id="sidebar">
-			<div id="collapseButton" onclick="collapseSidebar()"></div>
-			<div id="sidebarOptions">
-				<p>AND</p>
-				<p>NOT</p>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Logic Gates Simulator</title>
+		<link rel="stylesheet" href="home.css" />
+	</head>
+	<body>
+		<div id="workspace">
+			<div id="expandButton" onclick="expandSidebar()" style="opacity: 0"></div>
+			<div id="sidebar">
+				<div id="collapseButton" onclick="collapseSidebar()"></div>
+				<div id="sidebarOptions">
+					<p>AND</p>
+					<p>NOT</p>
+				</div>
+				<style id="sidebarBackgroundStyle">
+					#sidebarOptions p:nth-child(1):hover {
+						background-color: rgb(255, 91, 91) !important;
+					}
+					#sidebarOptions p:nth-child(2):hover {
+						background-color: rgb(138, 254, 136) !important;
+					}
+				</style>
+				<div id="encapsulateButton" onclick="encapsulate()">Encapsulate</div>
 			</div>
-			<style id="sidebarBackgroundStyle">
-				#sidebarOptions p:nth-child(1):hover{
-					background-color: rgb(255, 91, 91)!important;
+			<canvas id="canvas" draggable="false"></canvas>
+			<div class="block tooltip" id="input" style="background-color: rgb(95, 158, 160)">
+				INPUT
+			</div>
+			<div class="block tooltip" id="output" style="background-color: rgb(95, 158, 160)">
+				OUTPUT
+			</div>
+		</div>
+		<div id="edit"></div>
+		<div id="blockOut" style="display: none"></div>
+		<div id="encapsulateWindow" style="transform: translate(-50%, -50%); display: none">
+			<div id="closeButton" onclick="closeEncapsulateWindow()">x</div>
+			<h1>Customize Block</h1>
+			<label for="enterName">Name: </label
+			><input type="text" name="enterName" placeholder="Name" id="enterName" />
+			<label for="colorSlider">Color: </label
+			><input type="range" name="colorSlider" max="360" id="colorSlider" />
+			<button onclick="saveBlock()">Save</button>
+			<div id="previewWindow">
+				<div id="previewBlock">NAME</div>
+			</div>
+		</div>
+		<div id="contextMenu" style="transform: scaleY(0)" draggable="false">
+			<div><strong>Create</strong></div>
+			<div id="contextOptions">
+				<div>AND</div>
+				<div>NOT</div>
+			</div>
+			<style id="contextBackgroundStyle">
+				#contextOptions div:nth-child(1):hover {
+					background-color: rgb(255, 91, 91) !important;
 				}
-				#sidebarOptions p:nth-child(2):hover{
-					background-color: rgb(138, 254, 136)!important;
+				#contextOptions div:nth-child(2):hover {
+					background-color: rgb(138, 254, 136) !important;
 				}
 			</style>
-			<div id="encapsulateButton" onclick="encapsulate()">Encapsulate</div>
 		</div>
-		<canvas id="canvas" draggable="false"></canvas>
-		<div class="block tooltip" id="input" style="background-color:rgb(95, 158, 160)">INPUT</div>
-		<div class="block tooltip" id="output" style="background-color:rgb(95, 158, 160)">OUTPUT</div>
-	</div>
-	<div id="edit"></div>
-	<div id="contextMenu" style="transform: scaleY(0)" draggable="false">
-		<div><strong>Create</strong></div>
-		<div id="contextOptions">
-			<div>AND</div>
-			<div>NOT</div>
-		</div>
-		<style id="contextBackgroundStyle">
-			#contextOptions div:nth-child(1):hover{
-				background-color: rgb(255, 91, 91)!important;
-			}
-			#contextOptions div:nth-child(2):hover{
-				background-color: rgb(138, 254, 136)!important;
-			}
-		</style>
-	</div>
-	<div id="selector" draggable="false" style="display: none; width: 0px; height: 0px;"></div>
+		<div id="selector" draggable="false" style="display: none; width: 0px; height: 0px"></div>
 
-
-
-	<script src="pins.js"></script>
-	<script src="connections.js"></script>
-	<script src="logic.js"></script>
-	<script src="drag.js"></script>
-	<script src="ioEdit.js"></script>
-	<script src="create.js"></script>
-	<script src="encapsulate.js"></script>
-</body>
+		<script src="pins.js"></script>
+		<script src="connections.js"></script>
+		<script src="logic.js"></script>
+		<script src="drag.js"></script>
+		<script src="ioEdit.js"></script>
+		<script src="create.js"></script>
+		<script src="encapsulate.js"></script>
+	</body>
 </html>
