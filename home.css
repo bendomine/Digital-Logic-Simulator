@@ -1,26 +1,25 @@
-*{
+* {
 	user-select: none;
 }
-body{
+body {
 	overflow: hidden;
 	overflow-wrap: none;
 	margin: 0px;
 }
-#workspace{
+#workspace {
 	background-color: rgb(69, 69, 69);
 	background-size: 40px 40px;
-	background-image:
-		linear-gradient(to right, grey 2px, transparent 1px),
+	background-image: linear-gradient(to right, grey 2px, transparent 1px),
 		linear-gradient(to bottom, grey 2px, transparent 1px);
 	width: 100vw;
 	height: 100vh;
 	background-position: -2px -1px;
 }
-#canvas{
+#canvas {
 	background-color: rgba(0, 0, 0, 0);
 	position: absolute;
 }
-.block{
+.block {
 	border-radius: 4px;
 	position: absolute;
 	padding: 5px;
@@ -31,10 +30,10 @@ body{
 	border: 3px solid rgb(60, 60, 60);
 	user-select: none;
 }
-.block.isSelected{
+.block.isSelected {
 	box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.25);
 }
-.pin{
+.pin {
 	position: absolute;
 	width: 10px;
 	height: 10px;
@@ -44,16 +43,16 @@ body{
 	cursor: pointer;
 }
 
-.isActive{
-	background-color: inherit!important;
+.isActive {
+	background-color: inherit !important;
 	/* filter: brightness(133%); */
 	box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
 }
-.pin:hover{
+.pin:hover {
 	background-color: inherit;
 }
 
-.tooltip::before{
+.tooltip::before {
 	padding: 2px;
 	width: 100px;
 	border-radius: 5px;
@@ -61,16 +60,16 @@ body{
 	top: 0;
 	left: 50%;
 	transform: translate(-50%, -140%);
-	background-color: rgba(0.0, 0.0, 0.0, 0.7);
+	background-color: rgba(0, 0, 0, 0.7);
 	font-size: 13px;
-	content: "Double Click to Edit";
+	content: 'Double Click to Edit';
 	line-height: 13px;
 	transition: opacity 0.2s;
 	opacity: 0;
 	pointer-events: none;
 }
-.tooltip::after{
-	content: "";
+.tooltip::after {
+	content: '';
 	position: absolute;
 	top: 0%;
 	left: 50%;
@@ -82,20 +81,20 @@ body{
 	opacity: 0;
 	pointer-events: none;
 }
-.tooltip:hover::before{
+.tooltip:hover::before {
 	opacity: 1;
 }
-.tooltip:hover::after{
+.tooltip:hover::after {
 	opacity: 1;
 }
 
-.pin::before{
+.pin::before {
 	padding: 2px;
 	border-radius: 5px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	background-color: rgba(0.0, 0.0, 0.0, 0.7);
+	background-color: rgba(0, 0, 0, 0.7);
 	font-size: 13px;
 	content: attr(data-name);
 	line-height: 13px;
@@ -104,24 +103,24 @@ body{
 	pointer-events: none;
 	white-space: nowrap;
 }
-.pin[style*="-7.5"]::before{
+.pin[style*='-7.5']::before {
 	transform: translate(calc(-100% - 10px), -50%);
 }
-.pin:not([style*="-7.5"])::before{
+.pin:not([style*='-7.5'])::before {
 	transform: translate(10px, -50%);
 }
-.pin:hover::before{
+.pin:hover::before {
 	opacity: 1;
 }
 
-.toggle{
+.toggle {
 	width: 35px;
 	height: 19px;
 	position: relative;
 	cursor: pointer;
 }
-.toggle::before{
-	content: "";
+.toggle::before {
+	content: '';
 	width: 35px;
 	height: 20px;
 	position: absolute;
@@ -132,11 +131,11 @@ body{
 	border-radius: 34px;
 	transition: 0.25s;
 }
-.toggle:checked::before{
+.toggle:checked::before {
 	background-color: rgb(140, 140, 255);
 }
-.toggle::after{
-	content: "";
+.toggle::after {
+	content: '';
 	height: 16px;
 	width: 16px;
 	position: absolute;
@@ -148,12 +147,12 @@ body{
 	transition: 0.25s;
 	/* box-shadow: rgba(1, 1, 1, 0.5) 1px 1px 3px; */
 }
-.toggle:checked::after{
+.toggle:checked::after {
 	background-color: rgb(23, 23, 255);
 	transform: translate(15px, -50%);
 }
 
-#edit{
+#edit {
 	background-color: rgb(102, 102, 102);
 	border-radius: 5px;
 	position: absolute;
@@ -167,44 +166,44 @@ body{
 	border: 5px solid rgb(102, 102, 102);
 	transition: transform 0.3s, opacity 0.1s;
 }
-#edit:has(div:only-child){
+#edit:has(div:only-child) {
 	overflow: hidden;
 }
-#edit::-webkit-scrollbar{
+#edit::-webkit-scrollbar {
 	width: 10px;
 }
-#edit::-webkit-scrollbar-track{
+#edit::-webkit-scrollbar-track {
 	background-color: rgb(180, 180, 180);
 	opacity: 0.5;
 }
-#edit::-webkit-scrollbar-thumb{
+#edit::-webkit-scrollbar-thumb {
 	background-color: grey;
 	border-radius: 10px;
 }
-#edit::-webkit-scrollbar-thumb:hover{
+#edit::-webkit-scrollbar-thumb:hover {
 	background-color: rgb(120, 117, 117);
 }
-.editPin{
+.editPin {
 	display: flex;
 	background-color: #ccc;
 	padding: 5px;
 	position: relative;
 }
-.editPin:not(:last-child){
+.editPin:not(:last-child) {
 	border-bottom: 2px solid rgb(102, 102, 102);
 }
-.editPin *{
+.editPin * {
 	align-items: center;
 	margin: 2px 6px 2px 6px;
 	font-family: monospace;
 }
-.editPin:has(.addPin:hover){
+.editPin:has(.addPin:hover) {
 	border-bottom: 2px dashed green;
 }
-.editPin:has(.addSpacer:hover){
+.editPin:has(.addSpacer:hover) {
 	border-bottom: 2px dashed blue;
 }
-.addNew{
+.addNew {
 	position: absolute;
 	top: calc(100% + 1.3px);
 	transform: translate(0, -50%);
@@ -216,26 +215,26 @@ body{
 	font-family: impact;
 	cursor: pointer;
 }
-.addNew:hover{
+.addNew:hover {
 	opacity: 1;
 }
-.addPin{
+.addPin {
 	color: green;
 	left: 0;
 }
-.addSpacer{
+.addSpacer {
 	color: blue;
 	right: 0;
 }
 
-.name{
+.name {
 	width: 100px;
 }
-.editPin u{
+.editPin u {
 	margin: 0px;
 }
 
-#contextMenu{
+#contextMenu {
 	position: absolute;
 	border-radius: 4px;
 	/* background: rgba(93, 93, 93, 0.5); */
@@ -252,10 +251,10 @@ body{
 	color: white;
 	user-select: none;
 }
-#contextMenu::-webkit-scrollbar{
+#contextMenu::-webkit-scrollbar {
 	display: none;
 }
-#contextMenu div{
+#contextMenu div {
 	margin: 1px;
 	font-family: monospace;
 	font-size: 16px;
@@ -264,25 +263,24 @@ body{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-#contextMenu div:has(strong){
+#contextMenu div:has(strong) {
 	margin-bottom: 3px;
 	border-bottom: 1px solid grey;
-
 }
-.options{
+.options {
 	max-height: 100px;
 	overflow-y: auto;
 }
-#contextMenu div:not(:first-child) div{
+#contextMenu div:not(:first-child) div {
 	cursor: pointer;
 	transition: background-color 0.1s;
 	background-color: rgba(0, 0, 0, 0);
 }
-#contextMenu div:not(:first-child) div:hover{
+#contextMenu div:not(:first-child) div:hover {
 	background-color: grey;
 }
 
-#selector{
+#selector {
 	position: absolute;
 	top: 500px;
 	left: 204px;
@@ -293,7 +291,7 @@ body{
 	border: 1px solid rgba(175, 175, 175, 0.7);
 }
 
-#sidebar{
+#sidebar {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -308,7 +306,7 @@ body{
 	font-family: monospace;
 	font-size: 17px;
 }
-#collapseButton{
+#collapseButton {
 	position: absolute;
 	top: 7px;
 	right: 7px;
@@ -320,8 +318,8 @@ body{
 	cursor: pointer;
 	border-radius: 2px;
 }
-#collapseButton::after{
-	content: "";
+#collapseButton::after {
+	content: '';
 	position: absolute;
 	top: 7px;
 	right: 7px;
@@ -331,7 +329,7 @@ body{
 	border-left: 3px solid rgb(180, 180, 180);
 	border-radius: 2px;
 }
-#expandButton{
+#expandButton {
 	position: absolute;
 	top: 7px;
 	left: 0px;
@@ -345,8 +343,8 @@ body{
 	z-index: 98;
 	transition: opacity 0.2s;
 }
-#expandButton::after{
-	content: "";
+#expandButton::after {
+	content: '';
 	position: absolute;
 	top: 7px;
 	right: 7px;
@@ -356,39 +354,50 @@ body{
 	border-left: 3px solid rgb(255, 255, 255);
 	border-radius: 2px;
 }
-#sidebarOptions{
-	margin-top: 30px;
+#sidebarOptions {
+	/* margin-top: 30px; */
 	width: 100%;
 	padding-bottom: 5px;
 	border-bottom: 1px solid grey;
 }
-#sidebarOptions p{
+#sidebarOptions p {
 	margin: 0px;
 	padding-left: 5px;
 	cursor: pointer;
 	transition: background-color 0.1s;
 }
-#encapsulateButton{
+#createLabel {
+	border-bottom: 1px solid grey;
+	padding-bottom: 5px;
+	margin-top: 17px;
+	margin-bottom: 0;
+	padding-left: 5px;
+}
+#sidebarOptions p:first-child {
+	margin-top: 5px;
+}
+#encapsulateButton {
 	margin: auto;
+	text-align: center;
 	margin-top: 8px;
 	font-size: 20px;
 	padding: 4px;
-	width: min-content;
+	width: fit-content;
 	background-color: rgb(92, 92, 92);
 	border-radius: 5px;
 	cursor: pointer;
 	transition: background-color 0.2s;
 }
-#encapsulateButton:hover{
+#encapsulateButton:hover {
 	background-color: rgb(103, 103, 103);
 }
-#encapsulateButton:active{
+#encapsulateButton:active {
 	background-color: rgb(65, 65, 65);
 }
-#sidebarOptions p:hover{
+#sidebarOptions p:hover {
 	background-color: grey;
 }
-#encapsulateWindow{
+#encapsulateWindow {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -397,34 +406,30 @@ body{
 	background-color: rgb(56, 56, 56);
 	padding: 10px;
 	border-radius: 5px;
-	box-shadow:
-		2.8px 6.1px 5.5px rgba(0, 0, 0, 0.039),
-		8.2px 17.8px 13.2px rgba(0, 0, 0, 0.057),
-		16.8px 36.7px 24.8px rgba(0, 0, 0, 0.07),
-		30px 65.6px 44.2px rgba(0, 0, 0, 0.083),
-		51.5px 112.7px 82.7px rgba(0, 0, 0, 0.101),
-		102px 223px 198px rgba(0, 0, 0, 0.14);
+	box-shadow: 2.8px 6.1px 5.5px rgba(0, 0, 0, 0.039), 8.2px 17.8px 13.2px rgba(0, 0, 0, 0.057),
+		16.8px 36.7px 24.8px rgba(0, 0, 0, 0.07), 30px 65.6px 44.2px rgba(0, 0, 0, 0.083),
+		51.5px 112.7px 82.7px rgba(0, 0, 0, 0.101), 102px 223px 198px rgba(0, 0, 0, 0.14);
 	color: rgb(235, 235, 235);
 	z-index: 151;
 	transition: transform 0.3s, opacity 0.1s;
 }
-#encapsulateWindow label{
+#encapsulateWindow label {
 	font-size: 20px;
 }
-#encapsulateWindow *{
+#encapsulateWindow * {
 	margin: 0;
 	margin-bottom: 5px;
 }
-#encapsulateWindow *:nth-child(3){
+#encapsulateWindow *:nth-child(3) {
 	margin-right: 10px;
 }
-#encapsulateWindow *:nth-child(5){
+#encapsulateWindow *:nth-child(5) {
 	margin-right: 10px;
 }
-#encapsulateWindow input[type="text"]{
+#encapsulateWindow input[type='text'] {
 	font-family: monospace;
 }
-#previewWindow{
+#previewWindow {
 	position: relative;
 	top: 0;
 	left: 0;
@@ -435,12 +440,11 @@ body{
 	border-radius: 5px;
 	background-color: rgb(69, 69, 69);
 	background-size: 40px 40px;
-	background-image:
-		linear-gradient(to right, grey 2px, transparent 1px),
+	background-image: linear-gradient(to right, grey 2px, transparent 1px),
 		linear-gradient(to bottom, grey 2px, transparent 1px);
 	background-position: -2px, -1px;
 }
-#previewBlock{
+#previewBlock {
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -453,7 +457,7 @@ body{
 	background-color: var(--sliderColor);
 	cursor: default;
 }
-#blockOut{
+#blockOut {
 	width: 100vw;
 	height: 100vh;
 	position: absolute;
@@ -463,7 +467,7 @@ body{
 	background-color: rgba(0, 0, 0, 0.6);
 	transition: opacity 0.2s;
 }
-#closeButton{
+#closeButton {
 	position: absolute;
 	font-size: 30px;
 	width: 30px;
@@ -473,29 +477,92 @@ body{
 	color: white;
 	cursor: pointer;
 }
-#closeButton:hover{
+#closeButton:hover {
 	color: red;
 }
 /* Following code from http://danielstern.ca/range.css/?ref=css-tricks#/ (Modified by me)*/
-input[type=range] {
+input[type='range'] {
 	margin: 5px 0;
 	background-color: transparent;
 	-webkit-appearance: none;
 }
-input[type=range]:focus {
+input[type='range']:focus {
 	outline: none;
 }
-input[type=range]::-webkit-slider-runnable-track {
-	background: hsl(0,100%,68%);
-	background: linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -webkit-linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -moz-linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
+input[type='range']::-webkit-slider-runnable-track {
+	background: hsl(0, 100%, 68%);
+	background: linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -webkit-linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -moz-linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
 	border: 0;
 	border-radius: 25px;
 	height: 10px;
 	cursor: pointer;
 }
-input[type=range]::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb {
 	margin-top: -5px;
 	width: 20px;
 	height: 20px;
@@ -505,23 +572,149 @@ input[type=range]::-webkit-slider-thumb {
 	cursor: pointer;
 	-webkit-appearance: none;
 }
-input[type=range]:focus::-webkit-slider-runnable-track {
-	background: hsl(0,100%,68%);
-	background: linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -webkit-linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -moz-linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
+input[type='range']:focus::-webkit-slider-runnable-track {
+	background: hsl(0, 100%, 68%);
+	background: linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -webkit-linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -moz-linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
 }
-input[type=range]::-moz-range-track {
-	background: hsl(0,100%,68%);
-	background: linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -webkit-linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -moz-linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
+input[type='range']::-moz-range-track {
+	background: hsl(0, 100%, 68%);
+	background: linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -webkit-linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -moz-linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
 	border: 0;
 	border-radius: 25px;
 	height: 10px;
 	cursor: pointer;
 }
-input[type=range]::-moz-range-thumb {
+input[type='range']::-moz-range-thumb {
 	width: 20px;
 	height: 20px;
 	background: var(--sliderColor);
@@ -529,7 +722,7 @@ input[type=range]::-moz-range-thumb {
 	border-radius: 20px;
 	cursor: pointer;
 }
-input[type=range]::-ms-track {
+input[type='range']::-ms-track {
 	background: transparent;
 	border-color: transparent;
 	border-width: 5px 0;
@@ -537,23 +730,149 @@ input[type=range]::-ms-track {
 	height: 10px;
 	cursor: pointer;
 }
-input[type=range]::-ms-fill-lower {
-	background: hsl(0,100%,68%);
-	background: linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -webkit-linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -moz-linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
+input[type='range']::-ms-fill-lower {
+	background: hsl(0, 100%, 68%);
+	background: linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -webkit-linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -moz-linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
 	border: 0;
 	border-radius: 50px;
 }
-input[type=range]::-ms-fill-upper {
-	background: hsl(0,100%,68%);
-	background: linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -webkit-linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -moz-linear-gradient(0deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
+input[type='range']::-ms-fill-upper {
+	background: hsl(0, 100%, 68%);
+	background: linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -webkit-linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -moz-linear-gradient(
+		0deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
 	border: 0;
 	border-radius: 50px;
 }
-input[type=range]::-ms-thumb {
+input[type='range']::-ms-thumb {
 	width: 20px;
 	height: 20px;
 	background: var(--sliderColor);
@@ -563,25 +882,151 @@ input[type=range]::-ms-thumb {
 	margin-top: 0px;
 	/*Needed to keep the Edge thumb centred*/
 }
-input[type=range]:focus::-ms-fill-lower {
-	background: hsl(0,100%,68%);
-	background: linear-gradient(90deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -webkit-linear-gradient(90deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -moz-linear-gradient(90deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
+input[type='range']:focus::-ms-fill-lower {
+	background: hsl(0, 100%, 68%);
+	background: linear-gradient(
+		90deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -webkit-linear-gradient(
+		90deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -moz-linear-gradient(
+		90deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
 }
-input[type=range]:focus::-ms-fill-upper {
-	background: hsl(0,100%,68%);
-	background: linear-gradient(90deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -webkit-linear-gradient(90deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
-	background: -moz-linear-gradient(90deg,hsl(0,100%,68%) 0%, hsl(20,100%,68%) 5%, hsl(40,100%,68%) 11%, hsl(60,100%,68%) 16%, hsl(80,100%,68%) 22%, hsl(100,100%,68%) 27%, hsl(120,100%,68%) 33%, hsl(140,100%,68%) 38%, hsl(160,100%,68%) 44%, hsl(180,100%,68%) 50%, hsl(200,100%,68%) 55%, hsl(220,100%,68%) 61%, hsl(240,100%,68%) 66%, hsl(260,100%,68%) 72%, hsl(280,100%,68%) 77%, hsl(300,100%,68%) 83%, hsl(320,100%,68%) 88%, hsl(340,100%,68%) 94%, hsl(0,100%,68%) 100%);
+input[type='range']:focus::-ms-fill-upper {
+	background: hsl(0, 100%, 68%);
+	background: linear-gradient(
+		90deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -webkit-linear-gradient(
+		90deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
+	background: -moz-linear-gradient(
+		90deg,
+		hsl(0, 100%, 68%) 0%,
+		hsl(20, 100%, 68%) 5%,
+		hsl(40, 100%, 68%) 11%,
+		hsl(60, 100%, 68%) 16%,
+		hsl(80, 100%, 68%) 22%,
+		hsl(100, 100%, 68%) 27%,
+		hsl(120, 100%, 68%) 33%,
+		hsl(140, 100%, 68%) 38%,
+		hsl(160, 100%, 68%) 44%,
+		hsl(180, 100%, 68%) 50%,
+		hsl(200, 100%, 68%) 55%,
+		hsl(220, 100%, 68%) 61%,
+		hsl(240, 100%, 68%) 66%,
+		hsl(260, 100%, 68%) 72%,
+		hsl(280, 100%, 68%) 77%,
+		hsl(300, 100%, 68%) 83%,
+		hsl(320, 100%, 68%) 88%,
+		hsl(340, 100%, 68%) 94%,
+		hsl(0, 100%, 68%) 100%
+	);
 }
 /*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
 how to remove the vertical space around the range input in IE*/
-@supports (-ms-ime-align:auto) {
+@supports (-ms-ime-align: auto) {
 	/* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
-	input[type=range] {
-	margin: 0;
-	/*Edge starts the margin from the thumb, not the track as other browsers do*/
+	input[type='range'] {
+		margin: 0;
+		/*Edge starts the margin from the thumb, not the track as other browsers do*/
 	}
 }
 /* End code from http://danielstern.ca/range.css/?ref=css-tricks#/ */

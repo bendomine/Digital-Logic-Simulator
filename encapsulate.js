@@ -157,6 +157,9 @@ function saveBlock() {
 	}):hover{background-color: ${newData.color}!important;}`;
 	let newSidebarOption = document.createElement('p');
 	newSidebarOption.innerText = newData.name;
+	newSidebarOption.onclick = (e) => {
+		sidebarCreate(newData.name, e);
+	};
 	document.getElementById('sidebarOptions').appendChild(newSidebarOption);
 	document.getElementById('sidebarBackgroundStyle').innerHTML += `#sidebarOptions p:nth-child(${
 		document.getElementById('sidebarOptions').children.length
