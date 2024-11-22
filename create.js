@@ -105,3 +105,11 @@ function sidebarCreate(name, event) {
 	document.onmouseup = null;
 	console.log(event);
 }
+
+// Popup when attempting to leave page
+// DISABLED FOR TESTING-ENABLE BEFORE DEPLOYING
+addEventListener('beforeunload', (e) => {
+	e.preventDefault();
+	return '';
+});
+
