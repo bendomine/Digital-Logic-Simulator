@@ -21,6 +21,7 @@
 - The save preview box now accurately displays the appearance of the block.
 - Blocks created from the context menu now appear at the original right click location.
 - Added a popup when a loop is created.
+- Changed the page's title to the name of the repository.
 
 ### Pin Editing Improvements
 
