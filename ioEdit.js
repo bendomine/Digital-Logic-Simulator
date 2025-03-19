@@ -23,7 +23,7 @@ function buildEditMenu(triggerElem) {
 	document.getElementById('edit').style.transform = 'scale(1)';
 	document.getElementById('edit').style.opacity = '1';
 	document.getElementById('edit').replaceChildren();
-	//document.getElementById("edit").scrollTop = 0;
+
 	let index = -1;
 	for (let i = 0; i < blocks.length; ++i) {
 		if (blocks[i].ref == triggerElem) {
@@ -42,21 +42,37 @@ function buildEditMenu(triggerElem) {
 				text.children[0].onclick = removePin;
 				let container = document.createElement('div');
 				container.classList.add('editPin');
-				container.appendChild(text);
-				if (i < blocks[index].outPins.length - 1 || blocks[index].outPins.length < 2) {
-					let addPin = document.createElement('div');
-					let addSpacer = document.createElement('div');
-					addPin.innerText = '+';
-					addSpacer.innerText = '+';
-					addPin.classList.add('addNew');
-					addPin.classList.add('addPin');
-					addSpacer.classList.add('addNew');
-					addSpacer.classList.add('addSpacer');
-					addPin.onclick = newPin;
-					addSpacer.onclick = newSpacer;
-					container.appendChild(addPin);
-					container.appendChild(addSpacer);
+
+				if (i == 0) {
+					let addPinTop = document.createElement('div');
+					let addSpacerTop = document.createElement('div');
+					addPinTop.innerText = '+';
+					addSpacerTop.innerText = '+';
+					addPinTop.classList.add('addNew');
+					addPinTop.classList.add('addTop');
+					addPinTop.classList.add('addPin');
+					addSpacerTop.classList.add('addNew');
+					addSpacerTop.classList.add('addSpacer');
+					addSpacerTop.classList.add('addTop');
+					addPinTop.onclick = newPin;
+					addSpacerTop.onclick = newSpacer;
+					container.appendChild(addPinTop);
+					container.appendChild(addSpacerTop);
 				}
+
+				container.appendChild(text);
+				let addPin = document.createElement('div');
+				let addSpacer = document.createElement('div');
+				addPin.innerText = '+';
+				addSpacer.innerText = '+';
+				addPin.classList.add('addNew');
+				addPin.classList.add('addPin');
+				addSpacer.classList.add('addNew');
+				addSpacer.classList.add('addSpacer');
+				addPin.onclick = newPin;
+				addSpacer.onclick = newSpacer;
+				container.appendChild(addPin);
+				container.appendChild(addSpacer);
 				document.getElementById('edit').appendChild(container);
 			} else {
 				let toggle = document.createElement('input');
@@ -93,24 +109,39 @@ function buildEditMenu(triggerElem) {
 				let container = document.createElement('div');
 				container.classList.add('editPin');
 
+				if (i == 0) {
+					let addPinTop = document.createElement('div');
+					let addSpacerTop = document.createElement('div');
+					addPinTop.innerText = '+';
+					addSpacerTop.innerText = '+';
+					addPinTop.classList.add('addNew');
+					addPinTop.classList.add('addTop');
+					addPinTop.classList.add('addPin');
+					addSpacerTop.classList.add('addNew');
+					addSpacerTop.classList.add('addSpacer');
+					addSpacerTop.classList.add('addTop');
+					addPinTop.onclick = newPin;
+					addSpacerTop.onclick = newSpacer;
+					container.appendChild(addPinTop);
+					container.appendChild(addSpacerTop);
+				}
+
 				container.appendChild(toggle);
 				container.appendChild(name);
 				container.appendChild(save);
 				container.appendChild(button);
-				if (i < blocks[index].outPins.length - 1 || blocks[index].outPins.length < 2) {
-					let addPin = document.createElement('div');
-					let addSpacer = document.createElement('div');
-					addPin.innerText = '+';
-					addSpacer.innerText = '+';
-					addPin.classList.add('addNew');
-					addPin.classList.add('addPin');
-					addSpacer.classList.add('addNew');
-					addSpacer.classList.add('addSpacer');
-					addPin.onclick = newPin;
-					addSpacer.onclick = newSpacer;
-					container.appendChild(addPin);
-					container.appendChild(addSpacer);
-				}
+				let addPin = document.createElement('div');
+				let addSpacer = document.createElement('div');
+				addPin.innerText = '+';
+				addSpacer.innerText = '+';
+				addPin.classList.add('addNew');
+				addPin.classList.add('addPin');
+				addSpacer.classList.add('addNew');
+				addSpacer.classList.add('addSpacer');
+				addPin.onclick = newPin;
+				addSpacer.onclick = newSpacer;
+				container.appendChild(addPin);
+				container.appendChild(addSpacer);
 				document.getElementById('edit').appendChild(container);
 			}
 		}
@@ -123,21 +154,35 @@ function buildEditMenu(triggerElem) {
 				text.children[0].onclick = removePin;
 				let container = document.createElement('div');
 				container.classList.add('editPin');
-				container.appendChild(text);
-				if (i < blocks[index].inPins.length - 1 || blocks[index].inPins.length < 2) {
-					let addPin = document.createElement('div');
-					let addSpacer = document.createElement('div');
-					addPin.innerText = '+';
-					addSpacer.innerText = '+';
-					addPin.classList.add('addNew');
-					addPin.classList.add('addPin');
-					addSpacer.classList.add('addNew');
-					addSpacer.classList.add('addSpacer');
-					addPin.onclick = newPin;
-					addSpacer.onclick = newSpacer;
-					container.appendChild(addPin);
-					container.appendChild(addSpacer);
+				if (i == 0) {
+					let addPinTop = document.createElement('div');
+					let addSpacerTop = document.createElement('div');
+					addPinTop.innerText = '+';
+					addSpacerTop.innerText = '+';
+					addPinTop.classList.add('addNew');
+					addPinTop.classList.add('addTop');
+					addPinTop.classList.add('addPin');
+					addSpacerTop.classList.add('addNew');
+					addSpacerTop.classList.add('addSpacer');
+					addSpacerTop.classList.add('addTop');
+					addPinTop.onclick = newPin;
+					addSpacerTop.onclick = newSpacer;
+					container.appendChild(addPinTop);
+					container.appendChild(addSpacerTop);
 				}
+				container.appendChild(text);
+				let addPin = document.createElement('div');
+				let addSpacer = document.createElement('div');
+				addPin.innerText = '+';
+				addSpacer.innerText = '+';
+				addPin.classList.add('addNew');
+				addPin.classList.add('addPin');
+				addSpacer.classList.add('addNew');
+				addSpacer.classList.add('addSpacer');
+				addPin.onclick = newPin;
+				addSpacer.onclick = newSpacer;
+				container.appendChild(addPin);
+				container.appendChild(addSpacer);
 				document.getElementById('edit').appendChild(container);
 			} else {
 				let name = document.createElement('input');
@@ -163,23 +208,38 @@ function buildEditMenu(triggerElem) {
 				let container = document.createElement('div');
 				container.classList.add('editPin');
 
+				if (i == 0) {
+					let addPinTop = document.createElement('div');
+					let addSpacerTop = document.createElement('div');
+					addPinTop.innerText = '+';
+					addSpacerTop.innerText = '+';
+					addPinTop.classList.add('addNew');
+					addPinTop.classList.add('addTop');
+					addPinTop.classList.add('addPin');
+					addSpacerTop.classList.add('addNew');
+					addSpacerTop.classList.add('addSpacer');
+					addSpacerTop.classList.add('addTop');
+					addPinTop.onclick = newPin;
+					addSpacerTop.onclick = newSpacer;
+					container.appendChild(addPinTop);
+					container.appendChild(addSpacerTop);
+				}
+
 				container.appendChild(name);
 				container.appendChild(save);
 				container.appendChild(button);
-				if (i < blocks[index].inPins.length - 1 || blocks[index].inPins.length < 2) {
-					let addPin = document.createElement('div');
-					let addSpacer = document.createElement('div');
-					addPin.innerText = '+';
-					addSpacer.innerText = '+';
-					addPin.classList.add('addNew');
-					addPin.classList.add('addPin');
-					addSpacer.classList.add('addNew');
-					addSpacer.classList.add('addSpacer');
-					addPin.onclick = newPin;
-					addSpacer.onclick = newSpacer;
-					container.appendChild(addPin);
-					container.appendChild(addSpacer);
-				}
+				let addPin = document.createElement('div');
+				let addSpacer = document.createElement('div');
+				addPin.innerText = '+';
+				addSpacer.innerText = '+';
+				addPin.classList.add('addNew');
+				addPin.classList.add('addPin');
+				addSpacer.classList.add('addNew');
+				addSpacer.classList.add('addSpacer');
+				addPin.onclick = newPin;
+				addSpacer.onclick = newSpacer;
+				container.appendChild(addPin);
+				container.appendChild(addSpacer);
 				document.getElementById('edit').appendChild(container);
 			}
 		}
@@ -232,19 +292,40 @@ function saveName(event) {
 
 function removePin(event) {
 	if (document.getElementById('edit').children.length <= 1) return;
-	let temp = currentTarget.ref.innerText;
+	let side;
 	if (event.target.tagName != 'U') {
 		let index = Array.from(event.target.parentElement.parentElement.children).indexOf(
 			event.target.parentElement
 		);
 		if (currentTarget.operation == 'input') {
+			// Prevent removal if there are no pins
+			let numPins = 0;
+			for (let i = 0; i < currentTarget.outPins.length; ++i)
+				if (currentTarget.outPins[i] != null) numPins++;
+			if (numPins < 2) return;
+
+			// Remove pin DOM object
+			currentTarget.outPins[index].ref.remove();
+
 			currentTarget.outNames.splice(index, 1);
 			clearWires(event, currentTarget.outPins[index]);
 			currentTarget.outPins.splice(index, 1);
+
+			side = 1;
 		} else {
+			// Prevent removal if there are no pins
+			let numPins = 0;
+			for (let i = 0; i < currentTarget.inPins.length; ++i)
+				if (currentTarget.inPins[i] != null) numPins++;
+			if (numPins < 2) return;
+
+			// Remove pin DOM object
+			currentTarget.inPins[index].ref.remove();
 			currentTarget.inNames.splice(index, 1);
 			clearWires(event, currentTarget.inPins[index]);
 			currentTarget.inPins.splice(index, 1);
+
+			side = 0;
 		}
 	} else {
 		let index = Array.from(
@@ -253,58 +334,150 @@ function removePin(event) {
 		if (currentTarget.operation == 'input') {
 			currentTarget.outNames.splice(index, 1);
 			currentTarget.outPins.splice(index, 1);
+			side = 1;
 		} else {
 			currentTarget.inNames.splice(index, 1);
 			currentTarget.inPins.splice(index, 1);
+			side = 0;
 		}
 	}
-	currentTarget.ref.replaceChildren();
-	currentTarget.ref.innerText = temp;
-	initPins(currentTarget);
+	// currentTarget.ref.replaceChildren();
+	// currentTarget.ref.innerText = temp;
+	// initPins(currentTarget);
+	repositionPinsSide(currentTarget, side);
+
 	buildEditMenu(currentTarget.ref);
 	evaluate(event);
 }
 
 function newSpacer(event) {
+	let isTop = event.target.classList.contains('addTop');
+	let numPins;
+	let side;
 	let temp = currentTarget.ref.innerText;
-	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(
-		event.target.parentElement
-	);
+	let index = isTop
+		? -1
+		: Array.from(event.target.parentElement.parentElement.children).indexOf(
+				event.target.parentElement
+		  );
 	if (currentTarget.operation == 'input') {
 		currentTarget.outPins.splice(index + 1, 0, null);
 		currentTarget.outNames.splice(index + 1, 0, null);
+		numPins = currentTarget.outPins.length;
+		side = 1;
 	} else {
-		for (let i = 0; i < currentTarget.inPins.length; ++i) {
-			if (currentTarget.inPins[i] != null) clearWires(event, currentTarget.inPins[i]);
-		}
+		//for (let i = 0; i < currentTarget.inPins.length; ++i) {
+		// if (currentTarget.inPins[i] != null) clearWires(event, currentTarget.inPins[i]);
+		//}
 		currentTarget.inNames.splice(index + 1, 0, null);
 		currentTarget.inPins.splice(index + 1, 0, null);
+		numPins = currentTarget.inPins.length;
+		side = 0;
 	}
-	currentTarget.ref.replaceChildren();
-	currentTarget.ref.innerText = temp;
-	initPins(currentTarget);
+	// currentTarget.ref.replaceChildren();
+	// currentTarget.ref.innerText = temp;
+	initPin(currentTarget, side, index + 1);
+	repositionPinsSide(currentTarget, side);
 	buildEditMenu(currentTarget.ref);
+	if (index == numPins - 2)
+		document.getElementById('edit').scrollTo(0, document.getElementById('edit').scrollHeight);
 	evaluate(event);
 }
 
 function newPin(event) {
+	let isTop = event.target.classList.contains('addTop');
+	let numPins;
+	let side;
 	let temp = currentTarget.ref.innerText;
-	let index = Array.from(event.target.parentElement.parentElement.children).indexOf(
-		event.target.parentElement
-	);
+	let index = isTop
+		? -1
+		: Array.from(event.target.parentElement.parentElement.children).indexOf(
+				event.target.parentElement
+		  );
 	if (currentTarget.operation == 'input') {
 		currentTarget.outPins.splice(index + 1, 0, 1);
 		currentTarget.outNames.splice(index + 1, 0, 'Pin');
+		numPins = currentTarget.outPins.length;
+		side = 1;
 	} else {
-		for (let i = 0; i < currentTarget.inPins.length; ++i) {
-			if (currentTarget.inPins[i] != null) clearWires(event, currentTarget.inPins[i]);
-		}
+		// for (let i = index; i < currentTarget.inPins.length; ++i) {
+		// 	if (currentTarget.inPins[i] != null) {
+		// 		clearWires(event, currentTarget.inPins[i]);
+		// 	}
+		// }
 		currentTarget.inPins.splice(index + 1, 0, 1);
 		currentTarget.inNames.splice(index + 1, 0, 'Pin');
+		numPins = currentTarget.inPins.length;
+		side = 0;
 	}
-	currentTarget.ref.replaceChildren();
-	currentTarget.ref.innerText = temp;
-	initPins(currentTarget);
+	// currentTarget.ref.replaceChildren();
+	// currentTarget.ref.innerText = temp;
+	initPin(currentTarget, side, index + 1);
+	repositionPinsSide(currentTarget, side);
 	buildEditMenu(currentTarget.ref);
+	if (index == numPins - 2)
+		document.getElementById('edit').scrollTo(0, document.getElementById('edit').scrollHeight);
 	evaluate(event);
 }
+
+function contextMenu(event, mode) {
+	let menu = document.getElementById('contextMenu');
+	let options = document.getElementById('contextOptions');
+	options.replaceChildren();
+
+	if (mode == 'createBlock') {
+		document.getElementById('contextMenuHeader').innerText = 'Create Block';
+		let and = document.createElement('div');
+		and.innerText = 'AND';
+		and.onclick = (event) => {
+			createBlockFromCMenu('and', event);
+		};
+		let not = document.createElement('div');
+		not.innerText = 'NOT';
+		not.onclick = (event) => {
+			createBlockFromCMenu('not', event);
+		};
+		options.appendChild(and);
+		options.appendChild(not);
+
+		for (let i = 0; i < data.length; ++i) {
+			let newData = data[i];
+			let newOption = document.createElement('div');
+			newOption.innerText = newData.name;
+			newOption.onclick = (e) => {
+				createBlockFromCMenu(newData.name, e);
+			};
+			document.getElementById('contextOptions').appendChild(newOption);
+			document.getElementById(
+				'contextBackgroundStyle'
+			).innerHTML += `#contextOptions div:nth-child(${
+				document.getElementById('contextOptions').children.length
+			}):hover{background-color: ${newData.color}!important;}`;
+		}
+	} else if (mode == 'blockOptions') {
+		document.getElementById('contextMenuHeader').innerText = 'Block Options';
+		let blockName = event.target.innerText;
+		if (blockName != 'AND' && blockName != 'NOT') {
+			let deleteOption = document.createElement('div');
+			deleteOption.innerText = 'Delete Block';
+			document.getElementById('contextOptions').appendChild(deleteOption);
+			document.getElementById(
+				'contextBackgroundStyle'
+			).innerHTML += `#contextOptions div:nth-child(${
+				document.getElementById('contextOptions').children.length
+			}):hover{background-color: rgb(232, 15, 0)!important;}`;
+			deleteOption.onclick = () => {
+				menu.style.transform = 'scaleY(0)';
+				menu.style.opacity = '0';
+				removeBlockFromData(blockName);
+			};
+		}
+	}
+
+	menu.style.top = event.clientY + 'px';
+	menu.style.left = event.clientX + 'px';
+	menu.style.transform = 'scaleY(1)';
+	menu.style.opacity = '1';
+	menu.scrollTop = 0;
+}
+

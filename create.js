@@ -1,47 +1,64 @@
-document.getElementById('workspace').oncontextmenu = (e) => {
+document.getElementById('workspace').addEventListener('contextmenu', (e) => {
 	e.preventDefault();
-	document.getElementById('contextMenu').style.top = e.clientY + 'px';
-	document.getElementById('contextMenu').style.left = e.clientX + 'px';
-	document.getElementById('contextMenu').style.transform = 'scaleY(1)';
-	document.getElementById('contextMenu').style.opacity = '1';
-	document.getElementById('contextMenu').scrollTop = 0;
-};
-document.getElementById('workspace').addEventListener('mousedown', (e) => {
-	if (document.getElementById('contextMenu').style.transform == 'scaleY(1)')
-		document.getElementById('contextMenu').style.transform = 'scaleY(0)';
-	if (document.getElementById('contextMenu').style.opacity == '1')
-		document.getElementById('contextMenu').style.opacity = '0';
+	if (e.target.id == 'canvas' || e.target.classList.contains('block'))
+		contextMenu(e, 'createBlock');
 });
 
-document.getElementById('contextOptions').children[0].onclick = (e) => {
-	createBlockFromCMenu('and', e);
+document.getElementById('workspace').addEventListener('mousedown', (e) => {
+	let menu = document.getElementById('contextMenu');
+	if (menu.style.transform == 'scaleY(1)') menu.style.transform = 'scaleY(0)';
+	if (menu.style.opacity == '1') menu.style.opacity = '0';
+});
+
+let andContainer = document.getElementsByClassName('sidebarContainer')[0];
+let notContainer = document.getElementsByClassName('sidebarContainer')[1];
+andContainer.children[0].onmousedown = (e) => {
+	if (e.button == 0) sidebarCreate('and', e);
 };
-document.getElementById('contextOptions').children[1].onclick = (e) => {
-	createBlockFromCMenu('not', e);
+notContainer.children[0].onmousedown = (e) => {
+	if (e.button == 0) sidebarCreate('not', e);
 };
-document.getElementById('sidebarOptions').children[0].onclick = (e) => {
-	sidebarCreate('and', e);
+andContainer.children[0].oncontextmenu = (e) => {
+	e.preventDefault();
+	contextMenu(e, 'blockOptions');
 };
-document.getElementById('sidebarOptions').children[1].onclick = (e) => {
-	sidebarCreate('not', e);
+notContainer.children[0].oncontextmenu = (e) => {
+	e.preventDefault();
+	contextMenu(e, 'blockOptions');
 };
+
+// Set width of container based on width of block created
+andContainer.style.width = andContainer.children[0].offsetWidth + 20 + 'px';
+andContainer.style.height = andContainer.children[0].offsetHeight + 20 + 'px';
+andContainer.children[0].style.backgroundColor = 'rgb(255, 91, 91)';
+notContainer.style.width = notContainer.children[0].offsetWidth + 20 + 'px';
+notContainer.style.height = notContainer.children[0].offsetHeight + 20 + 'px';
+notContainer.children[0].style.backgroundColor = 'rgb(138, 254, 136)';
+
+initPreviewPins(andContainer.children[0], ['', ''], ['']);
+initPreviewPins(notContainer.children[0], [''], ['']);
 
 function createBlockFromCMenu(name, event) {
 	let newBlock = createBlock(name);
-	if (document.getElementById('contextMenu').style.transform == 'scaleY(1)')
-		document.getElementById('contextMenu').style.transform = 'scaleY(0)';
-	if (document.getElementById('contextMenu').style.opacity == '1')
-		document.getElementById('contextMenu').style.opacity = '0';
-	newBlock.ref.style.top = event.y + 'px';
-	newBlock.ref.style.left = event.x + 'px';
+	let cMenu = document.getElementById('contextMenu');
+	if (cMenu.style.transform == 'scaleY(1)') cMenu.style.transform = 'scaleY(0)';
+	if (cMenu.style.opacity == '1') cMenu.style.opacity = '0';
+	newBlock.ref.style.top = cMenu.style.top + '';
+	newBlock.ref.style.left = cMenu.style.left + '';
 }
 
 function createBlock(name) {
+	document.getElementById('sidebar').style.zIndex = blocks.length + 3;
+	document.getElementById('selector').style.zIndex = blocks.length + 2;
+
 	let newDiv = document.createElement('div');
 	newDiv.classList.add('block');
 	newDiv.innerText = name;
-	newDiv.addEventListener('mousedown', startDrag);
+	// NOTE: the code below should ensure that selection propagates before dragging occurs, but this is technically
+	// NOT part of the DOM2 standard. It should still work everywhere except IE, and is part of the DOM3 standard,
+	// but still, keep this in mind.
 	newDiv.addEventListener('mousedown', selectBlock);
+	newDiv.addEventListener('mousedown', startDrag);
 	document.getElementById('workspace').appendChild(newDiv);
 	let newBlock = {};
 	newBlock.operation = name;
@@ -89,7 +106,8 @@ function createBlock(name) {
 }
 
 function collapseSidebar() {
-	document.getElementById('sidebar').style.left = '-20%';
+	document.getElementById('sidebar').style.left =
+		-document.getElementById('sidebar').offsetWidth + 'px';
 	document.getElementById('expandButton').style.opacity = '1';
 }
 function expandSidebar() {
@@ -99,11 +117,12 @@ function expandSidebar() {
 
 function sidebarCreate(name, event) {
 	let newBlock = createBlock(name);
-	Object.defineProperty(event, 'target', { writable: false, value: newBlock.ref });
-	newBlock.ref.style.zIndex = 101;
-	startDrag(event);
-	document.onmouseup = null;
-	console.log(event);
+	newBlock.ref.style.left = Math.max(event.clientX - newBlock.ref.offsetWidth / 2, 0) + 'px';
+	newBlock.ref.style.top = Math.max(event.clientY - newBlock.ref.offsetHeight / 2, 0) + 'px';
+
+	startDragOnBlock(newBlock);
+
+	newBlock.ref.style.zIndex = blocks.length + 4;
 }
 
 // Popup when attempting to leave page

@@ -1,0 +1,34 @@
+This is a text file I'm using to keep track of versioning and changes.
+The majority of this project was created without versioning numbers, so I'm starting off with 1.0.0.
+
+DON'T FORGET: turn confirm-before-closing back on before committing anything!
+
+Version 1.1.0 (in progress):
+- Bugfixes:
+	-[x] Fixed right-click menu not appearing properly
+	-[x] Block creation from left menu being inconsistent
+	-[x] Crashes when making loops and such
+	-[x] Selection box doesn't always detect intersections
+	-[x] Selection box no longer appears above sidebar
+	-[x] Blocks start appearing above sidebar when there's more than 100
+	-[x] Blocks start appearing above selector when there's more than 100
+	-[x] Deleted blocks remain in selected blocks list
+	-[x] Removing blocks from selected blocks list caused only half the blocks to be deleted
+	-[x] Multiple blocks with the same name could be created, and AND and NOT could be overwritten
+	-[x] All pins could be removed from a block if a spacer was present
+	-[x] Blocks could be deleted even if they were in the workspace
+	-[x] Save preview window didn't accurately show block
+- Improvements:
+	-[x] Adding or removing pins from blocks will not remove all connections
+	-[x] Selector offsetting when dragging quickly
+	-[x] Delete keybind
+	-[x] Block creation from context menu doesn't appear at right click location
+	-[x] Deleting wires needs new keybind
+	-[x] Pressing 'a' now selects all blocks
+	-[x] Minor refactoring
+	-[x] Select and drag multiple blocks at once
+	-[x] Deleting a block from data
+	-[x] Ability to add pins/spacers at bottom/top of list
+	-[x] Complete rework of sidebar
+	-[x] Edit pins menu scrolls to new pin added
+	-[x] There's now a popup when you try to leave the page

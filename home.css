@@ -88,7 +88,7 @@ body {
 	opacity: 1;
 }
 
-.pin::before {
+.pin:not([data-name=''])::before {
 	padding: 2px;
 	border-radius: 5px;
 	position: absolute;
@@ -189,18 +189,31 @@ body {
 	padding: 5px;
 	position: relative;
 }
+.editPin:first-child {
+	border-top: 2px solid transparent;
+}
 .editPin:not(:last-child) {
 	border-bottom: 2px solid rgb(102, 102, 102);
+}
+.editPin:last-child {
+	overflow: hidden;
+	border-bottom: 2px solid transparent;
 }
 .editPin * {
 	align-items: center;
 	margin: 2px 6px 2px 6px;
 	font-family: monospace;
 }
-.editPin:has(.addPin:hover) {
+.editPin:has(.addPin:hover:not(.addTop)) {
 	border-bottom: 2px dashed green;
 }
-.editPin:has(.addSpacer:hover) {
+.editPin:has(.addPin.addTop:hover) {
+	border-top: 2px dashed green;
+}
+.editPin:has(.addSpacer.addTop:hover) {
+	border-top: 2px dashed blue;
+}
+.editPin:has(.addSpacer:hover:not(.addTop)) {
 	border-bottom: 2px dashed blue;
 }
 .addNew {
@@ -214,6 +227,11 @@ body {
 	font-size: 30px;
 	font-family: impact;
 	cursor: pointer;
+}
+.addTop {
+	bottom: calc(100%);
+	top: unset;
+	transform: translate(0, 50%);
 }
 .addNew:hover {
 	opacity: 1;
@@ -286,7 +304,7 @@ body {
 	left: 204px;
 	width: 50px;
 	height: 200px;
-	z-index: 99;
+	/* z-index: 99; */
 	background-color: rgba(122, 122, 122, 0.5);
 	border: 1px solid rgba(175, 175, 175, 0.7);
 }
@@ -296,15 +314,26 @@ body {
 	top: 0;
 	left: 0;
 	width: 15%;
+	min-width: 200px;
 	height: 100%;
-	z-index: 99;
-	border-right: 3px solid rgb(171, 171, 171);
+	/* border-right: 3px solid rgb(171, 171, 171); */
 	background-color: rgba(36, 36, 36, 0.7);
 	backdrop-filter: blur(6px);
 	transition: left 0.2s;
 	color: white;
 	font-family: monospace;
 	font-size: 17px;
+	overflow-x: hidden;
+	scrollbar-width: none;
+}
+#sidebarResize {
+	position: absolute;
+	width: 3px;
+	height: 100%;
+	top: 0;
+	right: 0%;
+	background-color: rgb(171, 171, 171);
+	cursor: ew-resize;
 }
 #collapseButton {
 	position: absolute;
@@ -316,7 +345,6 @@ body {
 	border-bottom: 3px solid rgb(180, 180, 180);
 	border-left: 3px solid rgb(180, 180, 180);
 	cursor: pointer;
-	border-radius: 2px;
 }
 #collapseButton::after {
 	content: '';
@@ -327,7 +355,6 @@ body {
 	height: 15px;
 	border-bottom: 3px solid rgb(180, 180, 180);
 	border-left: 3px solid rgb(180, 180, 180);
-	border-radius: 2px;
 }
 #expandButton {
 	position: absolute;
@@ -339,7 +366,6 @@ body {
 	border-bottom: 3px solid rgb(255, 255, 255);
 	border-left: 3px solid rgb(255, 255, 255);
 	cursor: pointer;
-	border-radius: 2px;
 	z-index: 98;
 	transition: opacity 0.2s;
 }
@@ -352,7 +378,18 @@ body {
 	height: 15px;
 	border-bottom: 3px solid rgb(255, 255, 255);
 	border-left: 3px solid rgb(255, 255, 255);
-	border-radius: 2px;
+}
+#sidebarControls {
+	display: inline;
+	border-bottom: 1px solid grey;
+	/* margin-bottom: 3px; */
+	background-color: rgb(67, 67, 67);
+	padding: 3px;
+}
+#sidebarControls p {
+	text-align: center;
+	margin: 0;
+	/* padding-bottom: 3px; */
 }
 #sidebarOptions {
 	/* margin-top: 30px; */
@@ -365,6 +402,23 @@ body {
 	padding-left: 5px;
 	cursor: pointer;
 	transition: background-color 0.1s;
+}
+.sidebarContainer {
+	position: relative;
+	display: inline-block;
+}
+.sidebarPreviewBlock {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 20px;
+	padding: 5px;
+	border-radius: 4px;
+	border: 3px solid rgb(60, 60, 60);
+	text-align: center;
+	cursor: default;
+	white-space: nowrap;
 }
 #createLabel {
 	border-bottom: 1px solid grey;
@@ -443,8 +497,9 @@ body {
 	background-image: linear-gradient(to right, grey 2px, transparent 1px),
 		linear-gradient(to bottom, grey 2px, transparent 1px);
 	background-position: -2px, -1px;
+	overflow: hidden;
 }
-#previewBlock {
+#savePreviewBlock {
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -456,6 +511,7 @@ body {
 	text-align: center;
 	background-color: var(--sliderColor);
 	cursor: default;
+	text-wrap: nowrap;
 }
 #blockOut {
 	width: 100vw;
@@ -1030,3 +1086,4 @@ how to remove the vertical space around the range input in IE*/
 	}
 }
 /* End code from http://danielstern.ca/range.css/?ref=css-tricks#/ */
+

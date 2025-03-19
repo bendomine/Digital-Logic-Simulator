@@ -10,12 +10,18 @@
 	<body>
 		<div id="workspace">
 			<div id="expandButton" onclick="expandSidebar()" style="opacity: 0"></div>
-			<div id="sidebar">
+			<div id="sidebar" style="z-index: 10">
+				<div id="sidebarResize"></div>
 				<div id="collapseButton" onclick="collapseSidebar()"></div>
 				<p id="createLabel">Create</p>
+				<!-- <span id="sidebarControls"><p>Collapse</p></span> -->
 				<div id="sidebarOptions">
-					<p>AND</p>
-					<p>NOT</p>
+					<div class="sidebarContainer">
+						<div class="sidebarPreviewBlock">AND</div>
+					</div>
+					<div class="sidebarContainer">
+						<div class="sidebarPreviewBlock">NOT</div>
+					</div>
 				</div>
 				<style id="sidebarBackgroundStyle">
 					#sidebarOptions p:nth-child(1):hover {
@@ -40,17 +46,17 @@
 		<div id="encapsulateWindow" style="transform: translate(-50%, -50%); display: none">
 			<div id="closeButton" onclick="closeEncapsulateWindow()">x</div>
 			<h1>Customize Block</h1>
-			<label for="enterName">Name: </label
-			><input type="text" name="enterName" placeholder="Name" id="enterName" />
-			<label for="colorSlider">Color: </label
-			><input type="range" name="colorSlider" max="360" id="colorSlider" />
+			<label for="enterName">Name: </label>
+			<input type="text" name="enterName" placeholder="Name" id="enterName" />
+			<label for="colorSlider">Color: </label>
+			<input type="range" name="colorSlider" max="360" id="colorSlider" />
 			<button onclick="saveBlock()">Save</button>
 			<div id="previewWindow">
-				<div id="previewBlock">NAME</div>
+				<div id="savePreviewBlock">NAME</div>
 			</div>
 		</div>
 		<div id="contextMenu" style="transform: scaleY(0)" draggable="false">
-			<div><strong>Create</strong></div>
+			<div><strong id="contextMenuHeader"></strong></div>
 			<div id="contextOptions">
 				<div>AND</div>
 				<div>NOT</div>
@@ -64,14 +70,19 @@
 				}
 			</style>
 		</div>
-		<div id="selector" draggable="false" style="display: none; width: 0px; height: 0px"></div>
+		<div
+			id="selector"
+			draggable="false"
+			style="display: none; width: 0px; height: 0px; z-index: 9"
+		></div>
 
 		<script src="pins.js"></script>
 		<script src="connections.js"></script>
 		<script src="logic.js"></script>
 		<script src="drag.js"></script>
 		<script src="ioEdit.js"></script>
-		<script src="create.js"></script>
 		<script src="encapsulate.js"></script>
+		<script src="create.js"></script>
 	</body>
 </html>
+

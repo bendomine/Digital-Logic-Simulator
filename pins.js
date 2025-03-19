@@ -17,64 +17,149 @@
 	What I'm saying is, this function is pretty great.
 
 */
-function initPins(block) {
-	// The following code took several days to write. I have no idea how it works.
+
+function initPin(block, side, index) {
+	// let maxPins = Math.max(block.inPins.length, block.outPins.length);
+	// if (maxPins > 2) block.ref.style.height = 15 * (maxPins - 1) + 'px';
+	// else block.ref.style.height = 23.2;
+	// block.ref.style.lineHeight = block.ref.style.height;
+	// See, I'm resorting to ternary operators. That's a sign that something is very, very wrong.
+
+	if (side == 0 && block.inPins[index] != null) {
+		// Creation of the pin element and application of all of the style stuff.
+		let elem = document.createElement('div');
+		elem.classList.add('pin');
+		block.ref.appendChild(elem);
+		elem.style.left = '-7.5px';
+		let data = elem.dataset;
+		data.name = block.inNames[index];
+		// Now that the element is created and added, we need to create the pin object to attach.
+		let pin = new Pin(elem, block);
+		pin.side = 0;
+		block.inPins[index] = pin;
+		// Also, when the pin is clicked on, we need to create a new wire.
+		elem.onmousedown = (e) => {
+			if (e.ctrlKey || e.shiftKey) clearWires(e, pin);
+			else newWire(pin);
+		};
+	} else if (side == 1 && block.outPins[index] != null) {
+		let elem = document.createElement('div');
+		elem.classList.add('pin');
+		block.ref.appendChild(elem);
+		elem.style.left = block.ref.offsetWidth - 10 + 'px';
+		let data = elem.dataset;
+		data.name = block.outNames[index];
+		let pin = new Pin(elem, block);
+		pin.side = 1;
+		block.outPins[index] = pin;
+		elem.onmousedown = (e) => {
+			if (e.ctrlKey || e.shiftKey) clearWires(e, pin);
+			else newWire(pin);
+		};
+	}
+	return block;
+}
+
+function repositionPinsSide(block, side) {
 	let maxPins = Math.max(block.inPins.length, block.outPins.length);
 	if (maxPins > 2) block.ref.style.height = 15 * (maxPins - 1) + 'px';
 	else block.ref.style.height = 23.2;
 	block.ref.style.lineHeight = block.ref.style.height;
-	// See, I'm resorting to ternary operators. That's a sign that something is very, very wrong.
-	let outTopPadding =
-		block.outPins.length <= block.inPins.length || block.outPins.length < 3
-			? (block.ref.offsetHeight - 15 * block.outPins.length) / 2
-			: 0;
-	let inTopPadding =
-		block.inPins.length <= block.outPins.length || block.inPins.length < 3
-			? (block.ref.offsetHeight - 15 * block.inPins.length) / 2
-			: 0;
-	// Scary code over.
+
+	if (side == 0) {
+		let inTopPadding =
+			block.inPins.length <= block.outPins.length || block.inPins.length < 3
+				? (block.ref.offsetHeight - 15 * block.inPins.length) / 2
+				: 0;
+		for (let i = 0; i < block.inPins.length; ++i) {
+			if (block.inPins[i] != null) {
+				block.inPins[i].ref.style.top = inTopPadding + 15 * i + 'px';
+			}
+		}
+	} else if (side == 1) {
+		let outTopPadding =
+			block.outPins.length <= block.inPins.length || block.outPins.length < 3
+				? (block.ref.offsetHeight - 15 * block.outPins.length) / 2
+				: 0;
+		for (let i = 0; i < block.outPins.length; ++i) {
+			if (block.outPins[i] != null) {
+				block.outPins[i].ref.style.top = outTopPadding + 15 * i + 'px';
+			}
+		}
+	}
+}
+
+function repositionPins(block) {
+	repositionPinsSide(block, 0);
+	repositionPinsSide(block, 1);
+}
+
+function initPins(block) {
+	// // The following code took several days to write. I have no idea how it works.
+	// let maxPins = Math.max(block.inPins.length, block.outPins.length);
+	// if (maxPins > 2) block.ref.style.height = 15 * (maxPins - 1) + 'px';
+	// else block.ref.style.height = 23.2;
+	// block.ref.style.lineHeight = block.ref.style.height;
+	// // See, I'm resorting to ternary operators. That's a sign that something is very, very wrong.
+	// let outTopPadding =
+	// 	block.outPins.length <= block.inPins.length || block.outPins.length < 3
+	// 		? (block.ref.offsetHeight - 15 * block.outPins.length) / 2
+	// 		: 0;
+	// let inTopPadding =
+	// 	block.inPins.length <= block.outPins.length || block.inPins.length < 3
+	// 		? (block.ref.offsetHeight - 15 * block.inPins.length) / 2
+	// 		: 0;
+	// // Scary code over.
+
+	// for (let i = 0; i < block.inPins.length; ++i) {
+	// 	if (block.inPins[i] == 1) {
+	// 		// Creation of the pin element and application of all of the style stuff.
+	// 		let elem = document.createElement('div');
+	// 		elem.classList.add('pin');
+	// 		// Each pin has 5px of space between them (because each pin is 10x10, 15-10 = 5).
+	// 		elem.style.top = inTopPadding + 15 * i + 'px';
+	// 		block.ref.appendChild(elem);
+	// 		elem.style.left = '-7.5px';
+	// 		let data = elem.dataset;
+	// 		data.name = block.inNames[i];
+	// 		// Now that the element is created and added, we need to create the pin object to attach.
+	// 		let pin = new Pin(elem, block);
+	// 		pin.side = 0;
+	// 		block.inPins[i] = pin;
+	// 		// Also, when the pin is clicked on, we need to create a new wire.
+	// 		elem.onmousedown = (e) => {
+	// 			if (e.ctrlKey || e.shiftKey) clearWires(e, pin);
+	// 			else newWire(pin);
+	// 		};
+	// 	}
+	// }
+	// // Believe it or not, this is almost exactly the same as the last bit of code!!
+	// for (let i = 0; i < block.outPins.length; ++i) {
+	// 	if (block.outPins[i] == 1) {
+	// 		let elem = document.createElement('div');
+	// 		elem.classList.add('pin');
+	// 		elem.style.top = outTopPadding + 15 * i + 'px';
+	// 		block.ref.appendChild(elem);
+	// 		elem.style.left = block.ref.offsetWidth - 10 + 'px';
+	// 		let data = elem.dataset;
+	// 		data.name = block.outNames[i];
+	// 		let pin = new Pin(elem, block);
+	// 		pin.side = 1;
+	// 		block.outPins[i] = pin;
+	// 		elem.onmousedown = (e) => {
+	// 			if (e.ctrlKey || e.shiftKey) clearWires(e, pin);
+	// 			else newWire(pin);
+	// 		};
+	// 	}
+	// }
 
 	for (let i = 0; i < block.inPins.length; ++i) {
-		if (block.inPins[i] != null) {
-			// Creation of the pin element and application of all of the style stuff.
-			let elem = document.createElement('div');
-			elem.classList.add('pin');
-			// Each pin has 5px of space between them (because each pin is 10x10, 15-10 = 5).
-			elem.style.top = inTopPadding + 15 * i + 'px';
-			block.ref.appendChild(elem);
-			elem.style.left = '-7.5px';
-			let data = elem.dataset;
-			data.name = block.inNames[i];
-			// Now that the element is created and added, we need to create the pin object to attach.
-			let pin = new Pin(elem, block);
-			pin.side = 0;
-			block.inPins[i] = pin;
-			// Also, when the pin is clicked on, we need to create a new wire.
-			elem.onmousedown = (e) => {
-				if (e.ctrlKey) clearWires(e, pin);
-				else newWire(pin);
-			};
-		}
+		block = initPin(block, 0, i);
 	}
-	// Believe it or not, this is almost exactly the same as the last bit of code!!
 	for (let i = 0; i < block.outPins.length; ++i) {
-		if (block.outPins[i] != null) {
-			let elem = document.createElement('div');
-			elem.classList.add('pin');
-			elem.style.top = outTopPadding + 15 * i + 'px';
-			block.ref.appendChild(elem);
-			elem.style.left = block.ref.offsetWidth - 10 + 'px';
-			let data = elem.dataset;
-			data.name = block.outNames[i];
-			let pin = new Pin(elem, block);
-			pin.side = 1;
-			block.outPins[i] = pin;
-			elem.onmousedown = (e) => {
-				if (e.ctrlKey) clearWires(e, pin);
-				else newWire(pin);
-			};
-		}
+		block = initPin(block, 1, i);
 	}
+	repositionPins(block);
 	return block;
 }
 
@@ -110,3 +195,4 @@ class Pin {
 		pin.connected.splice(pin.connected.indexOf(this), 1);
 	}
 }
+

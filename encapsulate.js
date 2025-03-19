@@ -6,12 +6,10 @@ document.getElementById('colorSlider').addEventListener('input', () => {
 	);
 });
 document.getElementById('enterName').addEventListener('input', () => {
-	document.getElementById('previewBlock').innerText = document.getElementById('enterName').value;
+	document.getElementById('savePreviewBlock').innerText =
+		document.getElementById('enterName').value;
 	if (document.getElementById('enterName').value.length == 0)
-		document.getElementById('previewBlock').innerText = 'NAME';
-	initPreviewPins();
-});
-function initPreviewPins() {
+		document.getElementById('savePreviewBlock').innerText = 'NAME';
 	let inIndex, outIndex;
 	for (let i = 0; i < blocks.length; ++i) {
 		if (blocks[i].operation == 'input') inIndex = i;
@@ -19,21 +17,22 @@ function initPreviewPins() {
 	}
 	let inNames = blocks[inIndex].outNames;
 	let outNames = blocks[outIndex].inNames;
+	initPreviewPins(document.getElementById('savePreviewBlock'), inNames, outNames);
+});
+function initPreviewPins(previewBlock, inNames, outNames) {
 	// The following code took several days to write. I have no idea how it works.
 	let maxPins = Math.max(inNames.length, outNames.length);
-	if (maxPins > 2)
-		document.getElementById('previewBlock').style.height = 15 * (maxPins - 1) + 'px';
-	else document.getElementById('previewBlock').style.height = 23.2;
-	document.getElementById('previewBlock').style.lineHeight =
-		document.getElementById('previewBlock').style.height;
+	if (maxPins > 2) previewBlock.style.height = 15 * (maxPins - 1) + 'px';
+	else previewBlock.style.height = 23.2;
+	previewBlock.style.lineHeight = previewBlock.style.height;
 	// See, I'm resorting to ternary operators. That's a sign that something is very, very wrong.
 	let outTopPadding =
 		outNames.length <= inNames.length || outNames.length < 3
-			? (document.getElementById('previewBlock').offsetHeight - 15 * outNames.length) / 2
+			? (previewBlock.offsetHeight - 15 * outNames.length) / 2
 			: 0;
 	let inTopPadding =
 		inNames.length <= outNames.length || inNames.length < 3
-			? (document.getElementById('previewBlock').offsetHeight - 15 * inNames.length) / 2
+			? (previewBlock.offsetHeight - 15 * inNames.length) / 2
 			: 0;
 	// Scary code over.
 
@@ -44,7 +43,7 @@ function initPreviewPins() {
 			elem.classList.add('pin');
 			// Each pin has 5px of space between them (because each pin is 10x10, 15-10 = 5).
 			elem.style.top = inTopPadding + 15 * i + 'px';
-			document.getElementById('previewBlock').appendChild(elem);
+			previewBlock.appendChild(elem);
 			elem.style.left = '-7.5px';
 			let data = elem.dataset;
 			data.name = inNames[i];
@@ -56,8 +55,8 @@ function initPreviewPins() {
 			let elem = document.createElement('div');
 			elem.classList.add('pin');
 			elem.style.top = outTopPadding + 15 * i + 'px';
-			document.getElementById('previewBlock').appendChild(elem);
-			elem.style.left = document.getElementById('previewBlock').offsetWidth - 10 + 'px';
+			previewBlock.appendChild(elem);
+			elem.style.left = previewBlock.offsetWidth - 10 + 'px';
 			let data = elem.dataset;
 			data.name = outNames[i];
 		}
@@ -75,7 +74,14 @@ function encapsulate() {
 	// 	'scale(100%, 100%), translate(-50%, -50%)';
 	document.getElementById('blockOut').style.display = 'block';
 	// document.getElementById('blockOut').style.opacity = '1';
-	initPreviewPins();
+	let inIndex, outIndex;
+	for (let i = 0; i < blocks.length; ++i) {
+		if (blocks[i].operation == 'input') inIndex = i;
+		else if (blocks[i].operation == 'output') outIndex = i;
+	}
+	let inNames = blocks[inIndex].outNames;
+	let outNames = blocks[outIndex].inNames;
+	initPreviewPins(document.getElementById('savePreviewBlock'), inNames, outNames);
 }
 function closeEncapsulateWindow() {
 	document.getElementById('blockOut').style.display = 'none';
@@ -85,20 +91,48 @@ function closeEncapsulateWindow() {
 	// document.getElementById('encapsulateWindow').style.transform =
 	// 	'scale(0, 0), translate(-50%, -50%)';
 	document.getElementById('enterName').value = '';
-	document.getElementById('previewBlock').innerText = 'NAME';
+	document.getElementById('savePreviewBlock').innerText = 'NAME';
 }
 function saveBlock() {
 	let newData = {};
+	let inputPins;
+	let outputPins;
 	newData.name = document.getElementById('enterName').value;
 	if (newData.name == '') newData.name = 'NAME';
+	if (
+		newData.name == 'NOT' ||
+		newData.name == 'AND' ||
+		newData.name == 'and' ||
+		newData.name == 'not'
+	) {
+		alert(
+			'Block with name ' + newData.name + ' already exists. Please choose a different name.'
+		);
+		return;
+	} else
+		for (let i = 0; i < data.length; ++i) {
+			if (data[i].name == newData.name) {
+				alert(
+					'Block with name ' +
+						newData.name +
+						' already exists. Please choose a different name.'
+				);
+				return;
+			}
+		}
 	newData.color = 'hsl(' + document.getElementById('colorSlider').value + ', 100%, 68%)';
 	let newComponents = [];
 	// First loop adds all blocks to components.
 	// Starting at one because of the mouse, which is in the blocks array at position 0. This also means that components index + 1 = blocks index.
 	for (let i = 1; i < blocks.length; ++i) {
 		let component = {};
-		if (blocks[i].operation == 'input' || blocks[i].operation == 'output')
+		if (blocks[i].operation == 'input') {
 			component.pinNames = [];
+			inputPins = blocks[i].outNames;
+		} else if (blocks[i].operation == 'output') {
+			component.pinNames = [];
+			outputPins = blocks[i].inNames;
+		}
 		component.name = blocks[i].operation;
 		component.inPins = [];
 		component.outPins = [];
@@ -146,24 +180,36 @@ function saveBlock() {
 	newData.components = newComponents;
 	data.push(newData);
 
-	let newOption = document.createElement('div');
-	newOption.innerText = newData.name;
-	newOption.onclick = (e) => {
-		createBlockFromCMenu(newData.name, e);
-	};
-	document.getElementById('contextOptions').appendChild(newOption);
-	document.getElementById('contextBackgroundStyle').innerHTML += `#contextOptions div:nth-child(${
-		document.getElementById('contextOptions').children.length
-	}):hover{background-color: ${newData.color}!important;}`;
-	let newSidebarOption = document.createElement('p');
+	let newSidebarOption = document.createElement('div');
+	newSidebarOption.classList.add('sidebarPreviewBlock');
 	newSidebarOption.innerText = newData.name;
-	newSidebarOption.onclick = (e) => {
-		sidebarCreate(newData.name, e);
+	newSidebarOption.style.backgroundColor = newData.color;
+	newSidebarOption.onmousedown = (e) => {
+		if (e.button == 0) sidebarCreate(newData.name, e);
 	};
-	document.getElementById('sidebarOptions').appendChild(newSidebarOption);
-	document.getElementById('sidebarBackgroundStyle').innerHTML += `#sidebarOptions p:nth-child(${
-		document.getElementById('sidebarOptions').children.length
-	}):hover{background-color: ${newData.color}!important;}`;
+
+	newSidebarOption.oncontextmenu = (e) => {
+		e.preventDefault();
+		contextMenu(e, 'blockOptions');
+	};
+
+	let newSidebarContainer = document.createElement('div');
+	newSidebarContainer.classList.add('sidebarContainer');
+	newSidebarContainer.appendChild(newSidebarOption);
+
+	document.getElementById('sidebarOptions').appendChild(newSidebarContainer);
+	let previewInPins = [];
+	inputPins.forEach((element) => {
+		if (element != null) previewInPins.push('');
+	});
+	let previewOutPins = [];
+	outputPins.forEach((element) => {
+		if (element != null) previewOutPins.push('');
+	});
+	initPreviewPins(newSidebarOption, inputPins, outputPins);
+
+	newSidebarContainer.style.width = newSidebarOption.offsetWidth + 20 + 'px';
+	newSidebarContainer.style.height = newSidebarOption.offsetHeight + 20 + 'px';
 	// document.getElementById('encapsulateWindow').style.opacity = '0';
 	document.getElementById('encapsulateWindow').style.display = 'none';
 	// document.getElementById('encapsulateWindow').style.transform =
@@ -171,5 +217,52 @@ function saveBlock() {
 	// document.getElementById('blockOut').style.opacity = '0';
 	document.getElementById('blockOut').style.display = 'none';
 	document.getElementById('enterName').value = '';
-	document.getElementById('previewBlock').innerText = 'NAME';
+	document.getElementById('savePreviewBlock').innerText = 'NAME';
 }
+
+function removeBlockFromData(blockName) {
+	if (
+		confirm(
+			'This will permanently delete block ' + blockName + '. Continue? This cannot be undone.'
+		)
+	) {
+		let dependentBlocks = [];
+		for (let i = 0; i < data.length; ++i) {
+			for (let j = 0; j < data[i].components.length; ++j) {
+				if (data[i].components[j].name == blockName) {
+					dependentBlocks.push(data[i].name);
+				}
+			}
+		}
+		for (let i = 0; i < blocks.length; ++i) {
+			if (blocks[i].operation == blockName) {
+				dependentBlocks.push('workspace');
+				break;
+			}
+		}
+		if (dependentBlocks.length == 0) {
+			for (let i = 0; i < data.length; ++i) {
+				if (data[i].name == blockName) {
+					data.splice(i, 1);
+					let sidebarOptions = document.getElementById('sidebarOptions').children;
+					for (let j = 0; j < sidebarOptions.length; ++j) {
+						if (sidebarOptions[j].children[0].innerText == blockName) {
+							sidebarOptions[j].remove();
+							break;
+						}
+					}
+					break;
+				}
+			}
+		} else {
+			alert(
+				'Cannot delete ' +
+					blockName +
+					", because it's used in " +
+					dependentBlocks.join(', ') +
+					'.'
+			);
+		}
+	}
+}
+
