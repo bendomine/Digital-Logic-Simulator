@@ -62,18 +62,22 @@ function initPreviewPins(previewBlock, inNames, outNames) {
 		}
 	}
 }
-function encapsulate() {
-	document.getElementById('colorSlider').value = Math.floor(Math.random() * 360);
+
+function openEncapsulateWindow(inNames, outNames) {
 	document.documentElement.style.setProperty(
 		'--sliderColor',
 		'hsl(' + document.getElementById('colorSlider').value + ', 100%, 68%)'
 	);
-	// document.getElementById('encapsulateWindow').style.opacity = '1';
 	document.getElementById('encapsulateWindow').style.display = 'block';
-	// document.getElementById('encapsulateWindow').style.transform =
-	// 	'scale(100%, 100%), translate(-50%, -50%)';
+
 	document.getElementById('blockOut').style.display = 'block';
-	// document.getElementById('blockOut').style.opacity = '1';
+
+	initPreviewPins(document.getElementById('savePreviewBlock'), inNames, outNames);
+}
+
+function encapsulate() {
+	let randColor = Math.floor(Math.random() * 360);
+	document.getElementById('colorSlider').value = randColor;
 	let inIndex, outIndex;
 	for (let i = 0; i < blocks.length; ++i) {
 		if (blocks[i].operation == 'input') inIndex = i;
@@ -81,7 +85,10 @@ function encapsulate() {
 	}
 	let inNames = blocks[inIndex].outNames;
 	let outNames = blocks[outIndex].inNames;
-	initPreviewPins(document.getElementById('savePreviewBlock'), inNames, outNames);
+
+	document.getElementById('saveButton').onclick = saveBlock;
+
+	openEncapsulateWindow(inNames, outNames);
 }
 function closeEncapsulateWindow() {
 	document.getElementById('blockOut').style.display = 'none';
@@ -93,33 +100,30 @@ function closeEncapsulateWindow() {
 	document.getElementById('enterName').value = '';
 	document.getElementById('savePreviewBlock').innerText = 'NAME';
 }
+
+function checkBlockName(name) {
+	if (name == '') return false;
+	if (name == 'NOT' || name == 'AND' || name == 'and' || name == 'not') {
+		return false;
+	} else
+		for (let i = 0; i < data.length; ++i) {
+			if (data[i].name == name) {
+				return false;
+			}
+		}
+	return true;
+}
+
 function saveBlock() {
 	let newData = {};
 	let inputPins;
 	let outputPins;
 	newData.name = document.getElementById('enterName').value;
 	if (newData.name == '') newData.name = 'NAME';
-	if (
-		newData.name == 'NOT' ||
-		newData.name == 'AND' ||
-		newData.name == 'and' ||
-		newData.name == 'not'
-	) {
-		alert(
-			'Block with name ' + newData.name + ' already exists. Please choose a different name.'
-		);
+	if (!checkBlockName(newData.name)) {
+		alert("Block with name '" + newData.name + "' already exists. Please choose another name.");
 		return;
-	} else
-		for (let i = 0; i < data.length; ++i) {
-			if (data[i].name == newData.name) {
-				alert(
-					'Block with name ' +
-						newData.name +
-						' already exists. Please choose a different name.'
-				);
-				return;
-			}
-		}
+	}
 	newData.color = 'hsl(' + document.getElementById('colorSlider').value + ', 100%, 68%)';
 	let newComponents = [];
 	// First loop adds all blocks to components.

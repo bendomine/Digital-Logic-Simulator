@@ -41,8 +41,6 @@ initPreviewPins(notContainer.children[0], [''], ['']);
 function createBlockFromCMenu(name, event) {
 	let newBlock = createBlock(name);
 	let cMenu = document.getElementById('contextMenu');
-	if (cMenu.style.transform == 'scaleY(1)') cMenu.style.transform = 'scaleY(0)';
-	if (cMenu.style.opacity == '1') cMenu.style.opacity = '0';
 	newBlock.ref.style.top = cMenu.style.top + '';
 	newBlock.ref.style.left = cMenu.style.left + '';
 }

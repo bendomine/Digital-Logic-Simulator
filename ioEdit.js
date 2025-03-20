@@ -423,11 +423,16 @@ function newPin(event) {
 function addToContextMenu(name, color, onclick) {
 	let newOption = document.createElement('div');
 	newOption.innerText = name;
-	newOption.onclick = onclick;
 	document.getElementById('contextOptions').appendChild(newOption);
 	document.getElementById('contextBackgroundStyle').innerHTML += `#contextOptions div:nth-child(${
 		document.getElementById('contextOptions').children.length
 	}):hover{background-color: ${color}!important;}`;
+	newOption.addEventListener('click', () => {
+		let menu = document.getElementById('contextMenu');
+		if (menu.style.transform == 'scaleY(1)') menu.style.transform = 'scaleY(0)';
+		if (menu.style.opacity == '1') menu.style.opacity = '0';
+		onclick();
+	});
 }
 
 function contextMenu(event, mode) {
@@ -455,6 +460,9 @@ function contextMenu(event, mode) {
 		document.getElementById('contextMenuHeader').innerText = 'Block Options';
 		let blockName = event.target.innerText;
 		if (blockName != 'AND' && blockName != 'NOT') {
+			addToContextMenu('Rename', '', () => {
+				openRenameWindow(blockName);
+			});
 			addToContextMenu('Delete Block', 'rgb(232, 15, 0)', () => {
 				removeBlockFromData(blockName);
 			});
@@ -466,5 +474,75 @@ function contextMenu(event, mode) {
 	menu.style.transform = 'scaleY(1)';
 	menu.style.opacity = '1';
 	menu.scrollTop = 0;
+}
+
+function openRenameWindow(oldName) {
+	let outNames, inNames, color, index;
+	// Find pin names of current block, as well as color.
+	for (let i = 0; i < data.length; ++i) {
+		if (data[i].name == oldName) {
+			index = i;
+			for (let j = 0; j < data[i].components.length; ++j) {
+				if (data[i].components[j].name == 'input') inNames = data[i].components[j].pinNames;
+				else if (data[i].components[j].name == 'output')
+					outNames = data[i].components[j].pinNames;
+			}
+			// Very cursed code to extract the first value of the color string.
+			// Specifically, the color is of the form hsl(x, y, z).
+			color = data[i].color.substring(4, data[i].color.indexOf(','));
+			break;
+		}
+	}
+
+	document.getElementById('colorSlider').value = color;
+	document.getElementById('enterName').value = oldName;
+	document.getElementById('savePreviewBlock').innerText = oldName;
+	document.getElementById('saveButton').onclick = () => {
+		renameBlock(index, inNames, outNames);
+	};
+	openEncapsulateWindow(inNames, outNames);
+}
+
+function renameBlock(index, inNames, outNames) {
+	let newName = document.getElementById('enterName').value;
+	let oldName = data[index].name;
+	if (newName == '') newName = 'NAME';
+	if (newName != oldName && !checkBlockName(newName)) {
+		alert("Block with name '" + newName + "' already exists. Please choose another name.");
+		return;
+	}
+	data[index].name = newName;
+	data[index].color = 'hsl(' + document.getElementById('colorSlider').value + ', 100%, 68%)';
+
+	// Now that the block has been changed in data, we need to change the names and colors of ever block
+	// in the workspace and sidebar. We also need to change the name of all components in data.
+	for (let i = 1; i < blocks.length; ++i) {
+		if (blocks[i].operation == oldName) {
+			blocks[i].operation = newName;
+			blocks[i].ref.childNodes[0].textContent = newName;
+			repositionPins(blocks[i]);
+			blocks[i].ref.style.backgroundColor =
+				'hsl(' + document.getElementById('colorSlider').value + ', 100%, 68%)';
+		}
+	}
+	let sidebarOptions = document.getElementById('sidebarOptions').children;
+	for (let i = 0; i < sidebarOptions.length; ++i) {
+		if (sidebarOptions[i].children[0].childNodes[0].textContent == oldName) {
+			sidebarOptions[i].children[0].innerText = newName;
+			initPreviewPins(sidebarOptions[i].children[0], inNames, outNames);
+			sidebarOptions[i].children[0].style.backgroundColor =
+				'hsl(' + document.getElementById('colorSlider').value + ', 100%, 68%)';
+			sidebarOptions[i].style.width = sidebarOptions[i].children[0].offsetWidth + 20 + 'px';
+			sidebarOptions[i].style.height = sidebarOptions[i].children[0].offsetHeight + 20 + 'px';
+			break;
+		}
+	}
+	for (let i = 0; i < data.length; ++i) {
+		for (let j = 0; j < data[i].components.length; ++j) {
+			if (data[i].components[j].name == oldName) data[i].components[j].name = newName;
+		}
+	}
+	updateLines();
+	closeEncapsulateWindow();
 }
 

@@ -30,7 +30,6 @@ function initPin(block, side, index) {
 		let elem = document.createElement('div');
 		elem.classList.add('pin');
 		block.ref.appendChild(elem);
-		elem.style.left = '-7.5px';
 		let data = elem.dataset;
 		data.name = block.inNames[index];
 		// Now that the element is created and added, we need to create the pin object to attach.
@@ -46,7 +45,6 @@ function initPin(block, side, index) {
 		let elem = document.createElement('div');
 		elem.classList.add('pin');
 		block.ref.appendChild(elem);
-		elem.style.left = block.ref.offsetWidth - 10 + 'px';
 		let data = elem.dataset;
 		data.name = block.outNames[index];
 		let pin = new Pin(elem, block);
@@ -74,6 +72,7 @@ function repositionPinsSide(block, side) {
 		for (let i = 0; i < block.inPins.length; ++i) {
 			if (block.inPins[i] != null) {
 				block.inPins[i].ref.style.top = inTopPadding + 15 * i + 'px';
+				block.inPins[i].ref.style.left = '-7.5px';
 			}
 		}
 	} else if (side == 1) {
@@ -84,6 +83,7 @@ function repositionPinsSide(block, side) {
 		for (let i = 0; i < block.outPins.length; ++i) {
 			if (block.outPins[i] != null) {
 				block.outPins[i].ref.style.top = outTopPadding + 15 * i + 'px';
+				block.outPins[i].ref.style.left = block.ref.offsetWidth - 10 + 'px';
 			}
 		}
 	}
