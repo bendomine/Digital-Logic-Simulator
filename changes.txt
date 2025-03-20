@@ -3,7 +3,12 @@ The majority of this project was created without versioning numbers, so I'm star
 
 DON'T FORGET: turn confirm-before-closing back on before committing anything!
 
-Version 1.1.0 (in progress):
+Version 1.1.1:
+- Bugfixes:
+	-[x] Prevented context menu background style list from growing each time the user right clicks.
+- Improvements:
+
+Version 1.1.0:
 - Bugfixes:
 	-[x] Fixed right-click menu not appearing properly
 	-[x] Block creation from left menu being inconsistent

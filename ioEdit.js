@@ -420,57 +420,44 @@ function newPin(event) {
 	evaluate(event);
 }
 
+function addToContextMenu(name, color, onclick) {
+	let newOption = document.createElement('div');
+	newOption.innerText = name;
+	newOption.onclick = onclick;
+	document.getElementById('contextOptions').appendChild(newOption);
+	document.getElementById('contextBackgroundStyle').innerHTML += `#contextOptions div:nth-child(${
+		document.getElementById('contextOptions').children.length
+	}):hover{background-color: ${color}!important;}`;
+}
+
 function contextMenu(event, mode) {
 	let menu = document.getElementById('contextMenu');
 	let options = document.getElementById('contextOptions');
 	options.replaceChildren();
+	document.getElementById('contextBackgroundStyle').innerText = '';
 
 	if (mode == 'createBlock') {
 		document.getElementById('contextMenuHeader').innerText = 'Create Block';
-		let and = document.createElement('div');
-		and.innerText = 'AND';
-		and.onclick = (event) => {
+		addToContextMenu('AND', 'rgb(255, 91, 91)', (event) => {
 			createBlockFromCMenu('and', event);
-		};
-		let not = document.createElement('div');
-		not.innerText = 'NOT';
-		not.onclick = (event) => {
+		});
+		addToContextMenu('NOT', 'rgb(138, 254, 136)', (event) => {
 			createBlockFromCMenu('not', event);
-		};
-		options.appendChild(and);
-		options.appendChild(not);
+		});
 
 		for (let i = 0; i < data.length; ++i) {
 			let newData = data[i];
-			let newOption = document.createElement('div');
-			newOption.innerText = newData.name;
-			newOption.onclick = (e) => {
-				createBlockFromCMenu(newData.name, e);
-			};
-			document.getElementById('contextOptions').appendChild(newOption);
-			document.getElementById(
-				'contextBackgroundStyle'
-			).innerHTML += `#contextOptions div:nth-child(${
-				document.getElementById('contextOptions').children.length
-			}):hover{background-color: ${newData.color}!important;}`;
+			addToContextMenu(newData.name, newData.color, (event) => {
+				createBlockFromCMenu(newData.name, event);
+			});
 		}
 	} else if (mode == 'blockOptions') {
 		document.getElementById('contextMenuHeader').innerText = 'Block Options';
 		let blockName = event.target.innerText;
 		if (blockName != 'AND' && blockName != 'NOT') {
-			let deleteOption = document.createElement('div');
-			deleteOption.innerText = 'Delete Block';
-			document.getElementById('contextOptions').appendChild(deleteOption);
-			document.getElementById(
-				'contextBackgroundStyle'
-			).innerHTML += `#contextOptions div:nth-child(${
-				document.getElementById('contextOptions').children.length
-			}):hover{background-color: rgb(232, 15, 0)!important;}`;
-			deleteOption.onclick = () => {
-				menu.style.transform = 'scaleY(0)';
-				menu.style.opacity = '0';
+			addToContextMenu('Delete Block', 'rgb(232, 15, 0)', () => {
 				removeBlockFromData(blockName);
-			};
+			});
 		}
 	}
 
