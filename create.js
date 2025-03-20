@@ -127,8 +127,8 @@ function sidebarCreate(name, event) {
 
 // Popup when attempting to leave page
 // DISABLED FOR TESTING-ENABLE BEFORE DEPLOYING
-addEventListener('beforeunload', (e) => {
-	e.preventDefault();
-	return '';
-});
+// addEventListener('beforeunload', (e) => {
+// 	e.preventDefault();
+// 	return '';
+// });
 
