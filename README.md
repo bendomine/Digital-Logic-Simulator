@@ -1,5 +1,7 @@
 # Ben Domine's Digital Logic Simulator
 
+https://bendomine.github.io/Digital-Logic-Simulator/
+
 ## Changelog - Version 1.1.0
 
 ### Improvements and Features
